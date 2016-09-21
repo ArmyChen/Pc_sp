@@ -1,0 +1,110 @@
+<?php
+
+$GLOBALS['smarty']->assign('index_ad',index_ad_sy_diy(119)); //首页广告调用或者循环广告
+$GLOBALS['smarty']->assign('article_cat_qyzx', get_article_cat(2)); //获取企业新闻链接标识
+$GLOBALS['smarty']->assign('article_list_qyzx', index_get_all_cat_articles(2)); //获取企业列表
+
+$GLOBALS['smarty']->assign('article_cat_meitu', get_feileiwz_article_cat(1)); //获取企业新闻链接标识
+
+ ?>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{$xxxxxx_path}/style/index.css">
+	<link rel="stylesheet" href="{$xxxxxx_path}/style/img.css">
+        <script src="{$xxxxxx_path}/js/jquery.js"></script>
+	  <script src="{$xxxxxx_path}/js/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript">var sid=1,aid=1,checkTimer,vipType=0;</script> 
+        <script src="{$xxxxxx_path}/js/index.js"></script>
+        <script src="{$xxxxxx_path}/js/global.js"></script>
+       <title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+ </head>
+    <body>
+
+
+
+
+
+
+            	<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+
+        <script type="text/javascript">resourceType = 1;</script>
+        <div class="banner">
+            <div class="banner-bg">
+            </div>
+            <div class="banner-big">
+                <ul class="list" id="list-pic">
+                     <!--{foreach from=$index_ad item=ad  name=index_ads key=key }-->	  
+                        <li>
+                            <a href="{$ad.url}" target="_blank">
+                                <img src="{$ad.file_url}" height="446" width="1180">
+                            </a>
+                        </li>
+                    <!--{/foreach}-->   
+                </ul>
+            </div>
+            <div class="banner-small">
+                <ol class="turn" id="turn">
+                     <!--{foreach from=$index_ad item=ad  name=index_ads key=key }-->
+                       <li {if $smarty.foreach.index_ads.iteration eq 1}class="current"{/if}{if $smarty.foreach.index_ads.last}class="last"{/if}>
+				<img src="{$ad.file_url}" height="82" width="217"></li>
+                   <!--{/foreach}-->   
+                </ol>
+            </div>
+        </div>    	
+        <div class="main clearfix">
+            <div class="main-in areaheart">
+
+
+	    <!--{foreach from=$article_cat_meitu item=cat name=cat}-->
+
+                <div class="picture clearfix">
+                    <div class="title clearfix">
+                        <div class="t-left">
+                            <i></i>
+                            <h2>{$cat.cat_name}</h2>
+                        </div>
+                        <div class="t-right">
+                            <a href="{$cat.cat_url}">更多</a>
+                            <em>&gt;</em>
+                        </div>
+                    </div>
+
+                    <ul class="list">
+
+		    <!--{foreach from=$cat.cat_fenlei item=article name=article}-->
+                        <li>
+                                <a href="{$article.url}">
+                                    <img width="194" height="270" alt="" src="{$article.file_url}">
+                                </a>
+                                <a href="{$article.file_url}" class="name">{$article.title}</a>
+                                <span>{$article.spcdesc}</span>
+                            </li>{/foreach}                      </ul>
+                </div>
+
+
+
+
+
+{/foreach}  
+
+
+
+
+
+
+
+
+
+        </div>
+        <!-- #BeginLibraryItem "/library/page_footer2.lbi" --><!-- #EndLibraryItem -->
+    </body>
+</html>

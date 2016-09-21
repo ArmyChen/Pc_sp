@@ -1,0 +1,20 @@
+<!-- $Id: ad_position_search.htm 16790 2012-10-24 08:56:15Z www.ecshophome.com $ -->
+<div class="form-div">
+  <form action="javascript:searchAdpo()" name="searchForm">
+    <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" /> 
+    <!-- 关键字 -->
+    关键字： <input type="text" name="position_name" size="25" />
+    <input type="submit" value="{$lang.button_search}" class="button" />
+  </form>
+</div>
+
+{literal}
+<script language="JavaScript">
+    function searchAdpo()
+    {
+        listTable.filter['position_name'] = Utils.trim(document.forms['searchForm'].elements['position_name'].value);
+        listTable.filter['page'] = 1;
+        listTable.loadList();
+    }
+</script>
+{/literal}

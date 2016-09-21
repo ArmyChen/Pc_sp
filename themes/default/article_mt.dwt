@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{$xxxxxx_path}/style/index.css">
+        <script src="{$xxxxxx_path}/js/jquery.js"></script>
+	  <script src="{$xxxxxx_path}/js/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript">var sid=1,aid=1,checkTimer,vipType=0;</script> 
+        <script src="{$xxxxxx_path}/js/index.js"></script>
+        <script src="{$xxxxxx_path}/js/global.js"></script>
+
+       <title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+ </head>
+    <body>
+    	<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+        <script type="text/javascript">resourceType = 1;</script>
+        <style>
+            table,tr,td { width:800px; height:1157px; text-align:center; vertical-align:middle; }
+            #bigpic img { vertical-align:middle; display:inline-block; max-width:800px; max-height:1157; }
+            .h-user .enter span{	
+                display:inline-block;
+                color: #555;
+            }
+            .h-user .enter span a{
+                color: #555;
+            }
+        </style> 
+        <link rel="stylesheet" href="{$xxxxxx_path}/style/img-details.css">
+	   <link rel="stylesheet" href="{$xxxxxx_path}/style/img.css">
+        <script type="text/javascript" src="{$xxxxxx_path}/js/image.js"></script>
+        <script type="text/javascript">
+
+            function loadImg(i) {
+                var currentIndex = $('#bigpic img').data('index'), targetIndex;
+                if (typeof (currentIndex) == 'undefined')
+                    currentIndex = 0;
+
+                if (i == 'pre') {
+                    targetIndex = currentIndex - 1;
+                } else if (i == 'next') {
+                    targetIndex = currentIndex + 1;
+                } else {
+                    i = i - 1;
+                    targetIndex = i;
+                }
+
+                if (targetIndex >= 4 || targetIndex < 0) {
+                    if (!vipType) {
+                        $('.pay-trigger').trigger("click");
+                        return false;
+                    }
+                }
+                $.getScript("/index.php/Home/Load/img/id/10/i/" + targetIndex, function () {
+                    if (img_html == '') {
+                        alert("已是最后一张");
+                        loadPayInfo();
+                        $('.gray,.paybox').addClass("gray-show").show();
+                    } else {
+                        $(".nownub").text(img_cindex);
+                        //$(".allnub").text(img_pagenum);
+                        $("#bigpic").html(img_html);
+                    }
+                });
+            }
+        </script> 
+
+
+
+
+  <link href="{$xxxxxx_path}/style/simplefoucs_lrtk.css" rel="stylesheet" />
+    <script src="{$xxxxxx_path}/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="{$xxxxxx_path}/js/simplefoucs.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="main clearfix details_main">
+            <div class="main-in areaheart">
+                <div class="details">
+                    <div class="details-in">
+                        <div class="head-dtl">
+                            <h2>{$article.title}（<i class="nownub">1</i>/<i class="allnub">15</i>）</h2>
+                            <div class="share clearfix">
+                                <div class="share-lf" style="width:1000px; text-align:center;">
+                                    <span class="time"><i></i>{$article.add_time}</span>
+                                    <span>热度：<i></i>5262{$article.click_count}</span>
+                                    <img src="/click_59.jpg" style="display:none;"></div>
+
+                           
+                            </div>
+                      <div class="bannerbox" style="margin-top:15px;">
+    <div id="focus">
+        <ul>
+	<!-- {foreach from=$pictures item=picture name=picture}-->
+            <li>
+                <img src="{$picture.img_url}" alt="" /></li>
+           <!--{/foreach}-->
+        </ul>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+     
+       
+
+
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+    
+</body></html>

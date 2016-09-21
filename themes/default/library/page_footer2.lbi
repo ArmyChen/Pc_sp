@@ -1,0 +1,18 @@
+<div class="footer">    
+            <div class="footer-in areaheart">
+                <div class="f-left">
+                    <ul class="list">
+                        <!--<li><a href="#">关于会员</a></li>
+                        <li><a href="#">注册协议</a></li>-->
+                        <li><a href="javascrip:void(0);">意见反馈</a></li>
+                        <li class="last"><a href="javascrip:void(0);">联系方式</a></li>
+
+
+                    </ul>
+                </div>
+                <div class="f-right">
+                    Copyright © {$shop_name}.2016 All Rights Reserved.
+                </div>
+            </div>
+        </div>  	
+        <div class="gray"></div>

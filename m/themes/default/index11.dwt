@@ -1,0 +1,153 @@
+<?php
+
+$GLOBALS['smarty']->assign('index_ad',index_ad_sy_diy(4)); //首页广告调用或者循环广告
+
+ ?>
+
+
+
+<!DOCTYPE html>
+<html lang="en" data-dpr="1" style="font-size: 37px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+      
+               <title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+
+                <link rel="stylesheet" href="{$xxxxxx_path}/css/swiper-3.3.1.min.css">
+        <link rel="stylesheet" href="{$xxxxxx_path}/css/style.css">
+        <link rel="stylesheet" href="{$xxxxxx_path}/css/grid.css">
+        <script src="{$xxxxxx_path}/js/flexible_0.3.4.js" type="text/javascript" charset="utf-8"></script>
+<style>@charset "utf-8";html{color:#000;background:#fff;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}html *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}html,body{font-family:sans-serif}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}input,select,textarea{font-size:100%}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}abbr,acronym{border:0;font-variant:normal}del{text-decoration:line-through}address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:500}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:500}q:before,q:after{content:''}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}a:hover{text-decoration:underline}ins,a{text-decoration:none}</style>
+
+
+
+        <script src="{$xxxxxx_path}/js/jquery.min.js"></script>
+        <script src="{$xxxxxx_path}/js/swiper-3.3.1.min.js"></script>
+        <script type="text/javascript">var sid = 1, aid = 1, checkTimer = 0, vipType = 0, regTime = 0, resourceType = 0;</script>
+<script type="text/javascript" src="{$xxxxxx_path}/js/pay.js"></script>        <script type="text/javascript" src="{$xxxxxx_path}/js/wap_status"></script>
+        <script>
+            var $ = jQuery;
+            $(function(){
+                if(vipType==0){
+                    $(".openVIP").html("开通VIP");
+                }else if(vipType==1){
+                    $(".openVIP").html("白银VIP");
+                }else if(vipType==2){
+                    $(".openVIP").html("黄金VIP");
+                }else if(vipType==3){
+                    $(".openVIP").html("钻石VIP");
+                }                
+            });
+        </script>
+        <style>
+            .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+                height: auto;bottom: 0.78125rem;
+            }
+            .swiper-pagination-bullet{background: #fff}
+        </style>
+    <script type="text/javascript">resourceType=2;</script><script>
+    $(function () {
+         var mySwiper = new Swiper('.swiper-container', {
+            loop: true,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            pagination: '.swiper-pagination',
+            paginationClickable: true
+        });
+        
+        $('.online').css('left', ($(window).width() / 2) - (lib.flexible.rem2px(4.5) / 2));
+        setInterval(getNo, 10000);
+        function getNo() {
+            i = parseInt(Math.random() * 100) + 3400;
+            $(".online").html('<img src="{$xxxxxx_path}/images/index-zs.png">当前在线人数<span class="red">' + i + '</span>人');
+            $(".online").show().addClass("flip-top");
+            setTimeout(function () {
+                $(".online").hide();
+            }, 5000);
+        }    
+        var picWidth = $(".relative img").width(), picHeight = parseInt(264 / 200 * picWidth);
+        $(".relative img").height(picHeight);
+        window.addEventListener("orientationchange", function () {
+            var picWidth = $(".relative img").width(), picHeight = parseInt(264 / 200 * picWidth);
+            $(".relative img").height(picHeight);
+        });
+    });
+</script><style>
+    .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+        height: auto;bottom: 0.78125rem;
+    }
+    .swiper-pagination-bullet{background: #fff}
+</style><link href="{$xxxxxx_path}/css/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
+
+
+
+
+
+<body class="index play" style="font-size: 12px;">
+
+
+
+
+
+
+
+
+    <header class="black-header fixed">
+        <span class="logo"><img src="{$xxxxxx_path}/images/d2d743f1gw1f5x32xdn4dj203k03kt9e.jpg" alt=""></span>{$shop_name}<a href="javascript:pay();" class="openVIP">开通VIP</a>
+    </header>
+    <div class="online flip-top" style="left: 101.75px; display: block;"><img src="{$xxxxxx_path}/images/index-zs.png">当前在线人数<span class="red">3475</span>人</div>
+    <nav>        
+        <a href="{$weburl}">精品</a>
+	{foreach name=nav_middle_list from=$navigator_list.middle item=nav key=key name=nav}
+        <a href="{if $nav.durl} {$nav.durl}{else}{$nav.url}{/if}">{$nav.name}</a>
+	{/foreach}
+    </nav>
+    <section>
+            <div class="swiper-container swiper-container-horizontal swiper-container-android">
+                <div class="swiper-wrapper" style="transform: translate3d(-370px, 0px, 0px); transition-duration: 0ms;">
+		
+		
+                          
+                   <!--{foreach from=$index_ad item=ad  name=index_ads key=key }-->	  
+                <div class="swiper-slide {if $smarty.foreach.index_ads.iteration eq 1}swiper-slide-active{/if}" data-swiper-slide-index="{$smarty.foreach.index_ads.index}" style="width: 370px;">
+                        <a href="{$ad.url}">
+                            <img src="{$weburl}{$ad.file_url}">
+                            <div class="shaddow"></div>
+                            <div class="shaddowTitle">{$ad.title}</div>
+                        </a>
+                    </div>    
+                        <!--{/foreach}-->   
+                
+                
+		</div>
+                <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div>
+            </div>
+        </section> 
+
+<!--{foreach from=get_categories_tree_index() item=cat name=cat_tree}-->
+
+    <section class="picList clearfix">
+    <h3>{$cat.name|escape:html}<a href="{$cat.url}" class="fr more">+MORE</a></h3>
+         
+ <!--{foreach from=$cat.catgoodslist item=goods name=goods}-->
+		    
+    <div class="col-md-4">
+        <a href="{$goods.url}">
+            <div class="pl10">
+                <div class="relative"><img src="{$goods.goods_img}" alt="" style="height: 153px;"><span class="flag01"></span></div>
+                <div class="title">{$goods.name|escape:html}</div>
+            </div>
+        </a>
+    </div>   
+                    
+   {/foreach}
+    		
+</section>   
+
+   {/foreach}
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+    
+
+</body></html>

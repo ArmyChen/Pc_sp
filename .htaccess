@@ -1,0 +1,33 @@
+<FilesMatch "\.(bak|inc|lib|sh|tpl|lbi|dwt)$">
+    order deny,allow
+    deny from all
+</FilesMatch>
+
+RewriteEngine On
+#RewriteBase /
+
+
+
+# direct one-word access
+RewriteRule ^(admin|xxxadmin|m|js|data|system)/(.*)$	$1/$2 [QSA,L]
+
+RewriteRule ^play[\/]([0-9]+)(.*)\.html$                                play\.php\?id=$1   [QSA,L]
+# 商品类的要放在前面，要不会跟商品的冲突
+
+RewriteRule ^cat-([0-9a-zA-Z_]+)-attr([^-]*)-([0-9]+)-(.+)-([a-zA-Z]+)[\/]*$  category\.php\?defurl=$1&filter_attr=$2&page=$3 [QSA,L]
+RewriteRule ^cat-([0-9a-zA-Z_]+)-attr([^-]*)[\/]*$                            category\.php\?defurl=$1&filter_attr=$2 [QSA,L]
+RewriteRule ^cat-attr([^-]*)([0-9a-zA-Z_]+)-([0-9]+)-(.+)-([a-zA-Z]+)[\/]*$                                      category\.php\?defurl=$1&page=$2[QSA,L]
+RewriteRule ^cat-([0-9a-zA-Z_]+)[\/]*$                                                                          category\.php\?defurl=$1  [QSA,L]
+RewriteRule ^cat-(?:[0-9a-zA-Z_]+)/([0-9]+)(.*)\.html$                                goods\.php\?id=$1   [QSA,L]
+
+# 文章类的要放在前面，要不会跟商品的冲突
+RewriteRule ^([0-9a-zA-Z_]+)-([0-9]+)-(.+)-([a-zA-Z]+)[\/]*$  article_cat\.php\?defurl=$1&page=$2&sort=$3&order=$4  [QSA,L]
+RewriteRule ^([0-9a-zA-Z_]+)-([0-9]+)-(.+)[\/]*$              article_cat\.php\?defurl=$1&page=$2&keywords=$3 [QSA,L]
+RewriteRule ^([0-9a-zA-Z_]+)-([0-9]+)[\/]*$                   article_cat\.php\?defurl=$1&page=$2   [QSA,L]
+RewriteRule ^([0-9a-zA-Z_]+)[\/]*$                            article_cat\.php\?defurl=$1   [QSA,L]
+RewriteRule ^(?:[0-9a-zA-Z_]+)/([0-9]+)(.*)\.html$                                article\.php\?id=$1   [QSA,L]
+
+
+
+
+

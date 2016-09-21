@@ -1,0 +1,41 @@
+<script type="text/javascript">
+var process_request = "{$lang.process_request}";
+</script>
+
+
+
+<div class="header">
+    		<div class="h-top">
+    			<div class="h-top-in areaheart">                
+    				<div class="h-welcom">
+    					<p>欢迎光临{$shop_name}，祝你看得开心！</p>
+    				</div>
+                    <script type="text/javascript" src="{$xxxxxx_path}/images/user_topbar.htm"></script><div class="h-user">
+<span id="vip" class="vip pay-trigger" data-target="0" >开通VIP</span>
+<div class="enter"> 
+<span class="dl" id="dl"><a href="#">登录</a></span>
+</div>
+</div>
+ 
+    			</div>
+    		</div>
+<!------------------ 导航和logo ------------------>
+    		<div class="h-nav">
+                <div class="areaheart">
+                    <a href="{$weburl}" class="logo"></a>
+                    <div class="nav">
+                        <ul class="list">
+                            <li><a href="{$weburl}">首页</a></li>
+			    {foreach name=nav_middle_list from=$navigator_list.middle item=nav key=key name=nav}
+                            <li><a target="_blank" href="{if $nav.durl} {$nav.durl}{else}{$nav.url}{/if}">{$nav.name}</a></li>
+			    {/foreach}
+
+
+
+                            <li class="diamond"><a href="search.php?intro=best"><img src="{$xxxxxx_path}/images/7ad67e6fgw1f5oy38z28qg202m00l3yb.gif"></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+    		</div>
+    	</div> 

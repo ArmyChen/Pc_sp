@@ -1,0 +1,361 @@
+<!-- $Id: agency_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+{insert_scripts files="validator.js,../js/transport.js,../js/region.js"}
+{insert_scripts files='../js/utils.js,../js/shopping_flow.js'}
+<div class="main-div">
+<form method="post" action="suppliers.php" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">分站商管理员账号：</td>
+    <td><input type="text" name="suppliers_name" maxlength="60" value="{$suppliers.suppliers_name}" />{$lang.require_field}</td>
+  </tr>
+  <!--dqy add start 2011-7-9
+ <tr>
+    <td class="label">供应商管理员密码：</td>
+    <td><input type="password" name="password" value=""/><!-- acai2046 如果密码为空不会更改密码。 </td>
+  </tr>
+dqy add end 2011-7-9-->
+<tr>
+    <td class="label"><a href="javascript:showNotice('tishi');" title="{$lang.form_notice}">
+        <img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>分站店标：</td>
+    <td>{$suppliers.suppliers_logo}<input type="file" name="suppliers_logo" id="logo"  size="45">
+
+    <br />
+	<span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="tishi">
+    {if $suppliers.suppliers_logo eq ''}
+   请上传图片
+    {else}
+   你已经上传过图片。再次上传时将覆盖原图片！
+    {/if}
+    </span>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">分站名称：</td>
+    <td><input type="text" name="dianpu_name" maxlength="60" value="{$suppliers.dianpu_name}" />{$lang.require_field}</td>
+  </tr>
+  <tr>
+    <td class="label">分站介绍：</td>
+    <td><textarea  name="dianpu_desc" cols="60" rows="4"  >{$suppliers.dianpu_desc}</textarea></td>
+  </tr>
+  <tr><td class="label"><a href="javascript:showNotice('dizhi');" title="{$lang.form_notice}">
+        <img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>负责地区：</td>
+  <td><select name="country" id="selCountries_{$sn}" onchange="region.changed(this, 1, 'selProvinces_{$sn}')">
+       <option value="0">-国家-</option>
+       <!-- {foreach from=$country_list item=country} -->
+       <option value="{$country.region_id}" {if $consignee.country eq $country.region_id}selected{/if}>{$country.region_name}</option>
+       <!-- {/foreach} -->
+   </select>
+               
+       <select name="province" id="selProvinces_{$sn}" onchange="region.changed(this, 2, 'selCities_{$sn}')">
+       <option value="0">-省份-</option>
+       <!-- {foreach from=$province_list.$sn item=province} -->
+       <option value="{$province.region_id}" {if $consignee.province eq $province.region_id}selected{/if}>{$province.region_name}</option>
+       <!-- {/foreach} -->
+       </select>
+       <select name="city" id="selCities_{$sn}" onchange="region.changed(this, 3, 'selDistricts_{$sn}')">
+       <option value="0">-城市-</option>
+       <!-- {foreach from=$city_list.$sn item=city} -->
+       <option value="{$city.region_id}" {if $consignee.city eq $city.region_id}selected{/if}>{$city.region_name}</option>
+       <!-- {/foreach} -->
+       </select>
+       <select name="district" id="selDistricts_{$sn}" {if !$district_list.$sn}style="display:none"{/if}>
+       <option value="0">-地区-</option>
+       <!-- {foreach from=$district_list.$sn item=district} -->
+       <option value="{$district.region_id}" {if $consignee.district eq $district.region_id}selected{/if}>{$district.region_name}</option>
+       <!-- {/foreach} -->
+       </select>
+	   <input type="text" name="address" maxlength="30" size="30" value="{$suppliers.address}" />
+	   
+	   <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="dizhi">
+    {if $suppliers.suppliers_logo eq ''}
+     请填写贷应商所在地!
+    {else}
+     目前供应商地址：{$province}-{$city}-{$district}-{$address}
+    {/if}
+    </span>
+	 
+	   </td>
+  </tr>
+
+  
+<tr>
+       <td class="label"><font color=#ff3300>网址URL：</font></td>
+      <td>
+	  <input type="text" name="define_url" value="{$suppliers.define_url}" size="30"  />
+	  <input type="hidden" name="old_define_url" value="{$suppliers.define_url}" />
+	  <br>
+	  <span class="notice-span">只允许输入数字、字母 以及 _ ，除此外不允许输入其他字符，尤其是不能输入中划线 - </span>
+	  </td>
+      </tr>
+	   <tr>
+    <td class="label"><font color=#ff3300>模板(风格)：</font></td>
+    <td><input type="text" name="moban" maxlength="60" size="60" value="{$suppliers.moban}" /></td>
+  </tr>
+   <tr>
+    <td class="label"><font color=#ff3300>标题：</font></td>
+    <td><input type="text" name="title_define" maxlength="60" size="60" value="{$suppliers.title_define}" /></td>
+  </tr>
+   <tr>
+    <td class="label"><font color=#ff3300>关键词：</font></td>
+    <td><input type="text" name="keywords" maxlength="60" size="60" value="{$suppliers.keywords}" /></td>
+  </tr>
+	  <tr>
+    <td class="label"><font color=#ff3300>描述：</font></td>
+    <td><textarea  name="suppliers_desc" cols="60" rows="4"  >{$suppliers.suppliers_desc}</textarea></td>
+  </tr>
+
+   <tr>
+    <td class="label">字段备用：</td>
+    <td><textarea  name="deo_desc" cols="60" rows="4"  >{$suppliers.deo_desc}</textarea></td>
+  </tr>
+    <tr>
+    <td class="label">{$lang.sort_order}</td>
+    <td><input type="text" name="sort_order" maxlength="40" size="15" value="{$suppliers.sort_order}" /></td>
+  </tr>
+ 
+  <tr>
+    <td class="label">是否显示</td>
+    <td><input type="radio" name="is_show" value="1" {if $suppliers.is_show eq 1}checked="checked"{/if} /> {$lang.yes}
+        <input type="radio" name="is_show" value="0" {if $suppliers.is_show eq 0}checked="checked"{/if} /> {$lang.no}
+        (当车系下还没有商品的时候，首页及分类页的l区将不会显示该车系。) 
+    </td>
+  </tr>
+  <tr>
+    <td class="label">
+    <a href="javascript:showNotice('noticeAdmins');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.label_admins}</td>
+    <td>{foreach from=$suppliers.admin_list item=admin}
+      <input type="checkbox" name="admins[]" value="{$admin.user_id}" {if $admin.type eq "this"}checked="checked"{/if} />
+      {$admin.user_name}{if $admin.type eq "other"}(*){/if}&nbsp;&nbsp;
+    {/foreach}<br />
+    <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticeAdmins">{$lang.notice_admins}</span></td>
+  </tr>
+</table>
+
+<table align="center">
+  <tr>
+    <td colspan="2" align="center">
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="id" value="{$suppliers.suppliers_id}" />
+	   <input type="hidden" name="old_supplierslogo" value="{$suppliers.suppliers_logo}">
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+document.forms['theForm'].elements['suppliers_name'].focus();
+
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("suppliers_name",  no_suppliers_name);
+    return validator.passed();
+}
+//-->
+</script>
+{/literal}
+
+{insert_scripts files="validator.js,tab.js"}
+<script language="JavaScript">
+
+var articleId = {$article.article_id|default:0};
+var elements  = document.forms['theForm'].elements;
+var sz        = new SelectZone(1, elements['source_select'], elements['target_select'], '');
+
+{literal}
+onload = function()
+{
+  // 开始检查订单
+  startCheckOrder();
+}
+
+function validate()
+{
+  var validator = new Validator('theForm');
+  validator.required('title', no_title);
+{/literal}
+{if $article.cat_id >= 0}
+  validator.isNullOption('article_cat',no_cat);
+{/if}
+{literal}
+
+  return validator.passed();
+}
+
+document.getElementById("tabbar-div").onmouseover = function(e)
+{
+    var obj = Utils.srcElement(e);
+
+    if (obj.className == "tab-back")
+    {
+        obj.className = "tab-hover";
+    }
+}
+
+document.getElementById("tabbar-div").onmouseout = function(e)
+{
+    var obj = Utils.srcElement(e);
+
+    if (obj.className == "tab-hover")
+    {
+        obj.className = "tab-back";
+    }
+}
+
+document.getElementById("tabbar-div").onclick = function(e)
+{
+    var obj = Utils.srcElement(e);
+
+    if (obj.className == "tab-front")
+    {
+        return;
+    }
+    else
+    {
+        objTable = obj.id.substring(0, obj.id.lastIndexOf("-")) + "-table";
+
+        var tables = document.getElementsByTagName("table");
+        var spans  = document.getElementsByTagName("span");
+
+        for (i = 0; i < tables.length; i++)
+        {
+            if (tables[i].id == objTable)
+            {
+                tables[i].style.display = (Browser.isIE) ? "block" : "table";
+            }
+            else
+            {
+                tables[i].style.display = "none";
+            }
+        }
+        for (i = 0; spans.length; i++)
+        {
+            if (spans[i].className == "tab-front")
+            {
+                spans[i].className = "tab-back";
+                obj.className = "tab-front";
+                break;
+            }
+        }
+    }
+}
+
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+
+function searchGoods()
+{
+    var elements  = document.forms['theForm'].elements;
+    var filters   = new Object;
+
+    filters.cat_id = elements['cat_id'].value;
+    filters.brand_id = elements['brand_id'].value;
+    filters.keyword = Utils.trim(elements['keyword'].value);
+
+    sz.loadOptions('get_goods_list', filters);
+}
+{/literal}
+
+/**
+ * 选取上级分类时判断选定的分类是不是底层分类
+ */
+function catChanged()
+{
+  var obj = document.forms['theForm'].elements['article_cat'];
+
+  cat_type = obj.options[obj.selectedIndex].getAttribute('cat_type');
+  if (cat_type == undefined)
+  {
+    cat_type = 1;
+  }
+
+  if ((obj.selectedIndex > 0) && (cat_type == 2 || cat_type == 4))
+  {
+    alert(not_allow_add);
+    obj.selectedIndex = 0;
+    return false;
+  }
+
+  return true;
+}
+
+function addVolumecontent(obj)
+  {
+    var src      = obj.parentNode.parentNode;
+    var tbl      = document.getElementById('tbody-volume');
+
+    var validator  = new Validator('theForm');
+    checkVolumeData("0",validator);
+    if (!validator.passed())
+    {
+      return false;
+    }
+
+    var row  = tbl.insertRow(tbl.rows.length);
+    var cell = row.insertCell(-1);
+    cell.innerHTML = src.cells[0].innerHTML.replace(/(.*)(addVolumecontent)(.*)(\[)(\+)/i, "$1removeVolumecontent$3$4-");
+
+    var number_list = document.getElementsByName("volume_title[]");
+    var img_list  = document.getElementsByName("volume_img[]");
+  var content_list  = document.getElementsByName("volume_content[]");
+    number_list[number_list.length-1].value = "";
+    content_list[content_list.length-1].value   = "";
+  }
+
+  /**
+   * 鍒犻櫎浼樻儬浠锋牸
+   */
+  function removeVolumecontent(obj)
+  {
+    var row = rowindex(obj.parentNode.parentNode);
+    var tbl = document.getElementById('tbody-volume');
+
+    tbl.deleteRow(row);
+  }
+
+  /**
+   * 鏍￠獙浼樻儬鏁版嵁鏄?惁姝ｇ‘
+   */
+  function checkVolumeData(isSubmit,validator)
+  {
+    var volumeNum = document.getElementsByName("volume_title[]");
+	var volumeimg = document.getElementsByName("volume_img[]");
+    var volumePri = document.getElementsByName("volume_content[]");
+	
+    var numErrNum = 0;
+    var priErrNum = 0;
+
+   
+  }
+  {/literal}
+
+</script>
+{include file="pagefooter.htm"}

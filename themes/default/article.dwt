@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{$xxxxxx_path}/style/index.css">
+        <script src="{$xxxxxx_path}/js/jquery.js"></script>
+	  <script src="{$xxxxxx_path}/js/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript">var sid=1,aid=1,checkTimer,vipType=0;</script> 
+        <script src="{$xxxxxx_path}/js/index.js"></script>
+        <script src="{$xxxxxx_path}/js/global.js"></script>
+
+       <title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+ </head>
+    <body>
+    	<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+        <script type="text/javascript">resourceType = 1;</script>
+        <style>
+            table,tr,td { width:800px; height:1157px; text-align:center; vertical-align:middle; }
+            #bigpic img { vertical-align:middle; display:inline-block; max-width:800px; max-height:1157; }
+            .h-user .enter span{	
+                display:inline-block;
+                color: #555;
+            }
+            .h-user .enter span a{
+                color: #555;
+            }
+        </style> 
+        <link rel="stylesheet" href="{$xxxxxx_path}/style/img-details.css">
+	   <link rel="stylesheet" href="{$xxxxxx_path}/style/img.css">
+        <script type="text/javascript" src="{$xxxxxx_path}/js/image.js"></script>
+        <script type="text/javascript">
+
+            function loadImg(i) {
+                var currentIndex = $('#bigpic img').data('index'), targetIndex;
+                if (typeof (currentIndex) == 'undefined')
+                    currentIndex = 0;
+
+                if (i == 'pre') {
+                    targetIndex = currentIndex - 1;
+                } else if (i == 'next') {
+                    targetIndex = currentIndex + 1;
+                } else {
+                    i = i - 1;
+                    targetIndex = i;
+                }
+
+                if (targetIndex >= 4 || targetIndex < 0) {
+                    if (!vipType) {
+                        $('.pay-trigger').trigger("click");
+                        return false;
+                    }
+                }
+                $.getScript("/index.php/Home/Load/img/id/10/i/" + targetIndex, function () {
+                    if (img_html == '') {
+                        alert("已是最后一张");
+                        loadPayInfo();
+                        $('.gray,.paybox').addClass("gray-show").show();
+                    } else {
+                        $(".nownub").text(img_cindex);
+                        //$(".allnub").text(img_pagenum);
+                        $("#bigpic").html(img_html);
+                    }
+                });
+            }
+        </script> 
+        <div class="main clearfix details_main">
+            <div class="main-in areaheart">
+                <div class="details">
+                    <div class="details-in">
+                        <div class="head-dtl">
+                            <h2>{$article.title}（<i class="nownub">1</i>/<i class="allnub">15</i>）</h2>
+                            <div class="share clearfix">
+                                <div class="share-lf">
+                                    <span class="time"><i></i>{$article.add_time}</span>
+                                    <span>热度：<i></i>5262{$article.click_count}</span>
+                                    <img src="/click_59.jpg" style="display:none;"></div>
+
+                                <div class="share-rgt">
+                                    <span>小技巧：使用键盘&lt;- -&gt;箭可以翻页浏览哦:-)</span>
+                                </div>
+                            </div>
+                            <div class="show">
+                                <div class="pic">
+                                    <div id="pic" class="donghua">
+                                        <ul class="ulist">
+                                            <li>
+                                                <table><tbody><tr><td id="bigpic"><img src="{$xxxxxx_path}/kindeditor/php/../../../uploads/image/20160721/20160721171444_29929.jpg" data-index="0"></td></tr></tbody></table>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <span id="left" class="show_lf">&lt;</span>
+                                <span id="right" class="show_rgt">&gt;</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="loading">
+                    <h2>图片下载</h2>
+                    <ul>
+                        <li>
+                            <a href="#">性感美女娜依灵儿尽显白嫩惹火身材.RAR</a>
+                            <input class="link" onClick="download('lturl')" type="button" value="联通下载">
+                            <input type="button" onClick="download('dxurl')" value="电信下载">
+                        </li>
+                    </ul>
+                </div>-->
+                <div class="picture clearfix dt_picture">
+                    <div class="title clearfix">
+                        <div class="t-left">
+                            <i></i>
+                            <h2>猜你喜欢</h2>
+                        </div>
+                        <div class="t-right">
+                            <a href="/index.php/Home/Img/index">更多</a>
+                            <em>&gt;</em>
+                        </div>
+                    </div>
+
+                    <ul class="list">
+
+                                                    <li>
+                                <a href="/index.php/Home/Detail/img/id/2">
+                                    <img src="/Public/uploads/images/2016-07-21/57907d9ebc84d.jpg" alt="" height="270" width="194">
+                                </a>
+                                <a class="name" href="/index.php/Home/Detail/img/id/2">精致嫩模徐cake身姿绰约丰满白嫩美乳人体艺术</a>
+                                <span>点击：117次</span>
+                            </li>                            <li>
+                                <a href="/index.php/Home/Detail/img/id/7">
+                                    <img src="/Public/uploads/images/2016-07-21/57908bd516871.jpg" alt="" height="270" width="194">
+                                </a>
+                                <a class="name" href="/index.php/Home/Detail/img/id/7">美艳嫩模韩恩熙床上白嫩躯体私拍写真</a>
+                                <span>点击：115次</span>
+                            </li>                            <li>
+                                <a href="/index.php/Home/Detail/img/id/5">
+                                    <img src="/Public/uploads/images/2016-07-21/57908b7ed5766.jpg" alt="" height="270" width="194">
+                                </a>
+                                <a class="name" href="/index.php/Home/Detail/img/id/5">性感妹子于姬身材凹凸有致惊人胸器香艳诱人</a>
+                                <span>点击：113次</span>
+                            </li>                            <li>
+                                <a href="/index.php/Home/Detail/img/id/10">
+                                    <img src="/Public/uploads/images/2016-07-21/57909260c683f.jpg" alt="" height="270" width="194">
+                                </a>
+                                <a class="name" href="/index.php/Home/Detail/img/id/10">巨乳美女Barbie可儿性感图片写真</a>
+                                <span>点击：111次</span>
+                            </li>                            <li class="mgr">
+                                <a href="/index.php/Home/Detail/img/id/3">
+                                    <img src="/Public/uploads/images/2016-07-21/57908b1303374.jpg" alt="" height="270" width="194">
+                                </a>
+                                <a class="name" href="/index.php/Home/Detail/img/id/3">性感美女伊小七窈窕身材美艳动人裸体艺术图片</a>
+                                <span>点击：108次</span>
+                            </li>                            <li>
+                                <a href="/index.php/Home/Detail/img/id/9">
+                                    <img src="/Public/uploads/images/2016-07-21/579091fbece6f.jpg" alt="" height="270" width="194">
+                                </a>
+                                <a class="name" href="/index.php/Home/Detail/img/id/9">顾欣怡性感妖媚爆乳火辣写真</a>
+                                <span>点击：108次</span>
+                            </li>                    </ul>                
+                </div>
+            </div>
+        </div>
+     
+       
+
+
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+    
+</body></html>

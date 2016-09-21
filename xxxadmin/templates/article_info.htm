@@ -1,0 +1,549 @@
+{include file="pageheader_bd.htm"}
+{insert_scripts files="../js/utils.js,selectzone_bd.js,colorselector.js"}
+<script type="text/javascript" src="../js/calendar.php?lang={$cfg_lang}"></script>
+<link href="../js/calendar/calendar.css" rel="stylesheet" type="text/css" />
+<!-- start goods form -->
+<div class="tab-div">
+  <div id="tabbar-div">
+    <p>
+      <span class="tab-front" id="general-tab">{$lang.tab_general}</span>
+  <span class="tab-back" id="detail-tab">电脑端文章内容</span>
+	   <span class="tab-back" id="mobile-tab">手机端文章内容</span>
+<span  class="tab-back" id="gallery-tab"  >图片相册</span>
+
+    </p>
+  </div>
+
+  <div id="tabbody-div">
+    <form  action="article.php" method="post" enctype="multipart/form-data" name="theForm" onsubmit="return validate();">
+    <table width="90%" id="general-table">
+      <tr>
+        <td class="narrow-label">{$lang.title}</td>
+        <td><input type="text" name="title" size ="40" maxlength="60" value="{$article.title|escape}" />{$lang.require_field}</td>
+      </tr>     
+	  
+	
+	  <tr>
+        <td class="narrow-label">自定义Title</td>
+        <td><input type="text" name="title_define" size ="60" maxlength="60" value="{$article.title_define|escape}" />{$lang.require_field}</td>
+      </tr> 
+
+
+      <!-- {if $article.cat_id >= 0} -->
+      <tr>
+        <td class="narrow-label">{$lang.cat} </td>
+        <td>
+          <select name="article_cat" onchange="catChanged()">
+            <option value="0">{$lang.select_plz}</option>
+            {$cat_select}
+          </select>
+         {$lang.require_field}</td>
+      </tr>
+      <!-- {else} -->
+      <input type="hidden" name="article_cat" value="-1" />
+      <!-- {/if} -->
+      {if $article.cat_id >= 0}
+      <tr>
+        <td class="narrow-label">{$lang.article_type}</td>
+        <td><input type="radio" name="article_type" value="0" {if $article.article_type eq 0}checked{/if}>{$lang.common}
+      <input type="radio" name="article_type" value="1" {if $article.article_type eq 1}checked{/if}>{$lang.top}
+        {$lang.require_field}        </td>
+      </tr>
+	  {if $special}
+	  <tr>
+        <td class="narrow-label">是否推荐</td>
+        <td><input type="radio" name="article_type_key" value="0" {if $article.article_type_key eq 0}checked{/if}>否
+      <input type="radio" name="article_type_key" value="1" {if $article.article_type_key eq 1}checked{/if}>是
+  </td>
+      </tr>
+	  {/if}
+	    
+      <tr>
+        <td class="narrow-label">{$lang.is_open}</td>
+        <td>
+        <input type="radio" name="is_open" value="1" {if $article.is_open eq 1}checked{/if}> {$lang.isopen}
+      <input type="radio" name="is_open" value="0" {if $article.is_open eq 0}checked{/if}> {$lang.isclose}{$lang.require_field}        </td>
+      </tr>
+      {else}
+      <tr style="display:none">
+      <td colspan="2"><input type="hidden" name="article_type" value="0" /><input type="hidden" name="is_open" value="1" /></td>
+      </tr>
+      {/if}
+
+
+
+
+
+
+  <tr>
+        <td class="narrow-label">{$lang.add_time}</td>
+        <td><input name="add_time" type="text" id="add_time" size="20" value='{$article.add_time}' readonly="readonly" /><input name="selbtn1" type="button" id="selbtn1" onclick="return showCalendar('add_time', '%Y-%m-%d %H:%M', '24', false, 'selbtn1');" value="{$lang.btn_select}" class="button"/></td>
+      </tr>
+    
+	   <tr>
+        <td class="narrow-label">{$lang.external_links}</td>
+        <td><input name="link_url" type="text" id="link_url" value="{if $article.link neq ''}{$article.link|escape}{else}http://{/if}" maxlength="60" /></td>
+      </tr>
+      <tr>
+        <td class="narrow-label">{$lang.keywords}</td>
+        <td><input type="text" name="keywords" maxlength="60" value="{$article.keywords|escape}" /></td>
+      </tr>
+      <tr>
+        <td class="narrow-label">{$lang.lable_description}</td>
+        <td><textarea name="description" id="description" cols="40" rows="5">{$article.description|escape}</textarea></td>
+      </tr>
+	  
+	 <tr>
+        <td class="narrow-label">简单说明</td>
+        <td><textarea name="spcdesc" id="spcdesc" cols="40" rows="5">{$article.spcdesc|escape}</textarea></td>
+      </tr>
+	  <tr>
+        <td class="narrow-label">缩略图片{$lang.upload_file}</td>
+        <td><input type="file" name="file">
+          <span class="narrow-label">{$lang.file_url}
+          <input name="file_url" type="text" value="{$article.file_url|escape}" size="30" maxlength="255" />
+          </span></td>
+      </tr>
+
+      
+	  
+    </table>
+
+
+
+
+
+
+
+
+<!-- 鍟嗗搧鐩稿唽 -->
+        <table width="90%" id="gallery-table" style="display:none" align="center">
+          <!-- 鍥剧墖鍒楄〃 -->
+          <tr>
+            <td>
+              {foreach from=$img_list item=img key=i}
+              <div id="gallery_{$img.img_id}" style="float:left; text-align:center; border: 1px solid #DADADA; margin: 4px; padding:2px;">
+                <a href="javascript:;" onclick="if (confirm('确定删除')) dropImg('{$img.img_id}')">[-]</a><br />
+              
+                <img src="../{if $img.thumb_url}{$img.thumb_url}{else}{$img.img_url}{/if}"  width="100" height="100" border="0" />
+               <br />
+                <input type="text" value="{$img.img_desc|escape}" size="15" name="old_img_desc[{$img.img_id}]" />
+              </div>
+              {/foreach}
+            </td>
+          </tr>
+          <tr><td>&nbsp;</td></tr>
+          <!-- 涓婁紶鍥剧墖 -->
+          <tr>
+            <td>
+              <a href="javascript:;" onclick="addImg(this)">[+]</a>
+              {$lang.img_desc} <input type="text" name="img_desc[]" size="20" />
+              {$lang.img_url} <input type="file" name="img_url[]" />
+            
+            </td>
+          </tr>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <table width="90%" id="detail-table" style="display:none">
+     <tr><td>{$FCKeditor1}</td></tr>
+    </table>
+<table width="90%" id="mobile-table" style="display:none">
+     <tr><td>{$FCKeditor2}</td></tr>
+    </table>
+    <table width="90%" id="goods-table" style="display:none">
+      <!-- 商品搜索 -->
+      <tr>
+      <td colspan="5">
+        <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+        <!-- 分类 -->
+        <select name="cat_id"><option value="0">{$lang.all_category}</caption>{$goods_cat_list}</select>
+        <!-- 品牌 -->
+        <select name="brand_id"><option value="0">{$lang.all_brand}</caption>{html_options options=$brand_list}</select>
+        <!-- 关键字 -->
+        <input type="text" name="keyword" size="30" />
+        <input type="button" value="{$lang.button_search}" onclick="searchGoods()" class="button" />
+      <td>
+      </tr>
+      <!-- 商品列表 -->
+      <tr>
+        <th>{$lang.all_goods}</th>
+        <th>{$lang.handler}</th>
+        <th>{$lang.send_bouns_goods}</th>
+		
+      </tr>
+      <tr>
+        <td width="45%" align="center">
+          <select name="source_select" size="20" style="width:90%" ondblclick="sz.addItem(false, 'add_link_goods', articleId)" multiple="true">
+          </select>
+        </td>
+        <td align="center">
+          <p><input type="button" value="&gt;&gt;" onclick="sz.addItem(true, 'add_link_goods', articleId)" class="button" /></p>
+          <p><input type="button" value="&gt;" onclick="sz.addItem(false, 'add_link_goods', articleId)" class="button" /></p>
+          <p><input type="button" value="&lt;" onclick="sz.dropItem(false, 'drop_link_goods', articleId)" class="button" /></p>
+          <p><input type="button" value="&lt;&lt;" onclick="sz.dropItem(true, 'drop_link_goods', articleId)" class="button" /></p>
+        </td>
+        <td width="45%" align="center">
+          <select name="target_select" multiple="true" size="20" style="width:90%" ondblclick="sz.dropItem(false, 'drop_link_goods', articleId)">
+            {foreach from=$goods_list item=goods}
+            <option value="{$goods.goods_id}">{$goods.goods_name}</option>
+            {/foreach}
+          </select>
+        </td>
+      </tr>
+    </table>
+
+<table width="90%" id="article-table" style="display:none" align="center">
+          <!-- //阿能新增文章关联文章功能20140510   -->
+          <tr>
+            <td colspan="3">
+              <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+              {$lang.article_title} <input type="text" name="article_title" />
+              <input type="button" value="{$lang.button_search}" onclick="searchArticle()" class="button" />
+            </td>
+          </tr>
+          <!-- 鏂囩珷鍒楄〃 -->
+          <tr>
+            <th>可选文章</th>
+            <th>操作</th>
+            <th>跟该文章关联的文章</th>
+          </tr>
+
+
+		   <tr>
+        <td width="45%" align="center">
+          <select name="source_select3" size="20" style="width:90%" ondblclick="sz3.addItem(false, 'add_article_article', articleId)" multiple="true">
+          </select>
+        </td>
+        <td align="center">
+          <p><input type="button" value="&gt;&gt;" onclick="sz3.addItem(true, 'add_article_article', articleId)" class="button" /></p>
+          <p><input type="button" value="&gt;" onclick="sz3.addItem(false, 'add_article_article', articleId)" class="button" /></p>
+          <p><input type="button" value="&lt;" onclick="sz3.dropItem(false, 'drop_article_article', articleId)" class="button" /></p>
+          <p><input type="button" value="&lt;&lt;" onclick="sz3.dropItem(true, 'drop_article_article', articleId)" class="button" /></p>
+        </td>
+        <td width="45%" align="center">
+          <select name="target_select3" multiple="true" size="20" style="width:90%" ondblclick="sz3.dropItem(false, 'drop_article_article', articleId)">
+            
+                {foreach from=$article_article_list item=article_article}
+                <option value="{$article_article.article_id}">{$article_article.title}</option>
+                {/foreach}
+          </select>
+        </td>
+      </tr>
+
+  <!-- //阿能新增文章关联文章功能20140510   -->
+          
+        </table>
+
+
+    <div class="button-div">
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="old_title" value="{$article.title}"/>
+      <input type="hidden" name="id" value="{$article.article_id}" />
+      <input type="submit" value="{$lang.button_submit}" class="button"  />
+      <input type="reset" value="{$lang.button_reset}" class="button" />
+    </div>
+    </form>
+  </div>
+
+</div>
+<!-- end goods form -->
+{insert_scripts files="validator.js,tab.js"}
+
+
+
+
+
+
+
+
+
+<script language="JavaScript">
+var articleId = {$article.article_id|default:0};
+var elements  = document.forms['theForm'].elements;
+var sz        = new SelectZone(1, elements['source_select'], elements['target_select'], '');
+//阿能新增文章关联文章功能20140510 
+var sz3 = new SelectZone(1, elements['source_select3'], elements['target_select3']);
+//阿能新增文章关联文章功能20140510  
+
+  {literal}
+  onload = function()
+  {
+      handlePromote(document.forms['theForm'].elements['is_promote'].checked);
+
+      if (document.forms['theForm'].elements['auto_thumb'])
+      {
+          handleAutoThumb(document.forms['theForm'].elements['auto_thumb'].checked);
+      }
+
+      // 妫€鏌ユ柊璁㈠崟
+      startCheckOrder();
+      {/literal}
+      {foreach from=$user_rank_list item=item}
+      set_price_note({$item.rank_id});
+      {/foreach}
+      {literal}
+      document.forms['theForm'].reset();
+  }
+
+
+
+
+
+
+{literal}
+onload = function()
+{
+  // 开始检查订单
+  startCheckOrder();
+}
+
+function validate()
+{
+  var validator = new Validator('theForm');
+  validator.required('title', no_title);
+{/literal}
+{if $article.cat_id >= 0}
+  validator.isNullOption('article_cat',no_cat);
+{/if}
+{literal}
+
+  return validator.passed();
+}
+
+document.getElementById("tabbar-div").onmouseover = function(e)
+{
+    var obj = Utils.srcElement(e);
+
+    if (obj.className == "tab-back")
+    {
+        obj.className = "tab-hover";
+    }
+}
+
+document.getElementById("tabbar-div").onmouseout = function(e)
+{
+    var obj = Utils.srcElement(e);
+
+    if (obj.className == "tab-hover")
+    {
+        obj.className = "tab-back";
+    }
+}
+
+document.getElementById("tabbar-div").onclick = function(e)
+{
+    var obj = Utils.srcElement(e);
+
+    if (obj.className == "tab-front")
+    {
+        return;
+    }
+    else
+    {
+        objTable = obj.id.substring(0, obj.id.lastIndexOf("-")) + "-table";
+
+        var tables = document.getElementsByTagName("table");
+        var spans  = document.getElementsByTagName("span");
+
+        for (i = 0; i < tables.length; i++)
+        {
+            if (tables[i].id == objTable)
+            {
+                tables[i].style.display = (Browser.isIE) ? "block" : "table";
+            }
+            else
+            {
+                tables[i].style.display = "none";
+            }
+        }
+        for (i = 0; spans.length; i++)
+        {
+            if (spans[i].className == "tab-front")
+            {
+                spans[i].className = "tab-back";
+                obj.className = "tab-front";
+                break;
+            }
+        }
+    }
+}
+
+function showNotice(objId)
+{
+    var obj = document.getElementById(objId);
+
+    if (obj)
+    {
+        if (obj.style.display != "block")
+        {
+            obj.style.display = "block";
+        }
+        else
+        {
+            obj.style.display = "none";
+        }
+    }
+}
+
+function searchGoods()
+{
+    var elements  = document.forms['theForm'].elements;
+    var filters   = new Object;
+
+    filters.cat_id = elements['cat_id'].value;
+    filters.brand_id = elements['brand_id'].value;
+    filters.keyword = Utils.trim(elements['keyword'].value);
+
+    sz.loadOptions('get_goods_list', filters);
+}
+
+//阿能新增文章关联文章功能20140510
+
+/**
+   * 鍏宠仈鏂囩珷鍑芥暟
+   */
+  function searchArticle()
+  {
+    var filters = new Object;
+
+    filters.title = Utils.trim(elements['article_title'].value);
+
+    sz3.loadOptions('get_article_list', filters);
+  }
+{/literal}
+//阿能新增文章关联文章功能20140510
+
+/**
+ * 选取上级分类时判断选定的分类是不是底层分类
+ */
+function catChanged()
+{
+  var obj = document.forms['theForm'].elements['article_cat'];
+
+  cat_type = obj.options[obj.selectedIndex].getAttribute('cat_type');
+  if (cat_type == undefined)
+  {
+    cat_type = 1;
+  }
+
+  if ((obj.selectedIndex > 0) && (cat_type == 2 || cat_type == 4))
+  {
+    alert(not_allow_add);
+    obj.selectedIndex = 0;
+    return false;
+  }
+
+  return true;
+}
+
+function addVolumecontent(obj)
+  {
+    var src      = obj.parentNode.parentNode;
+    var tbl      = document.getElementById('tbody-volume');
+
+    var validator  = new Validator('theForm');
+    checkVolumeData("0",validator);
+    if (!validator.passed())
+    {
+      return false;
+    }
+
+    var row  = tbl.insertRow(tbl.rows.length);
+    var cell = row.insertCell(-1);
+    cell.innerHTML = src.cells[0].innerHTML.replace(/(.*)(addVolumecontent)(.*)(\[)(\+)/i, "$1removeVolumecontent$3$4-");
+
+    var number_list = document.getElementsByName("s_cat_id[]");
+    var img_list  = document.getElementsByName("volume_beiyong[]");
+  var content_list  = document.getElementsByName("volume_content[]");
+    number_list[number_list.length-1].value = "";
+	 img_list[img_list.length-1].value = "";
+    content_list[content_list.length-1].value   = "";
+  }
+
+  /**
+   * 鍒犻櫎浼樻儬浠锋牸
+   */
+  function removeVolumecontent(obj)
+  {
+    var row = rowindex(obj.parentNode.parentNode);
+    var tbl = document.getElementById('tbody-volume');
+
+    tbl.deleteRow(row);
+  }
+
+  /**
+   * 鏍￠獙浼樻儬鏁版嵁鏄?惁姝ｇ‘
+   */
+  function checkVolumeData(isSubmit,validator)
+  {
+    var volumeNum = document.getElementsByName("s_cat_id[]");
+	var volumeimg = document.getElementsByName("volume_beiyong[]");
+    var volumePri = document.getElementsByName("volume_content[]");
+	
+    var numErrNum = 0;
+    var priErrNum = 0;
+
+   
+  }
+
+
+
+
+
+
+
+    function addImg(obj)
+  {
+      var src  = obj.parentNode.parentNode;
+      var idx  = rowindex(src);
+      var tbl  = document.getElementById('gallery-table');
+      var row  = tbl.insertRow(idx + 1);
+      var cell = row.insertCell(-1);
+      cell.innerHTML = src.cells[0].innerHTML.replace(/(.*)(addImg)(.*)(\[)(\+)/i, "$1removeImg$3$4-");
+  }
+
+
+  /**
+   * 鍒犻櫎鍥剧墖涓婁紶
+   */
+  function removeImg(obj)
+  {
+      var row = rowindex(obj.parentNode.parentNode);
+      var tbl = document.getElementById('gallery-table');
+
+      tbl.deleteRow(row);
+  }
+
+  /**
+   * 鍒犻櫎鍥剧墖
+   */
+  function dropImg(imgId)
+  {
+    Ajax.call('article.php?is_ajax=1&act=drop_image', "img_id="+imgId, dropImgResponse, "GET", "JSON");
+  }
+
+  function dropImgResponse(result)
+  {
+      if (result.error == 0)
+      {
+          document.getElementById('gallery_' + result.content).style.display = 'none';
+      }
+  }
+
+  {/literal}
+
+
+</script>

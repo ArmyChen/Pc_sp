@@ -1,0 +1,97 @@
+<!-- $Id: brand_info.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+<div class="main-div">
+<form method="post" action="chexi.php" name="theForm" enctype="multipart/form-data" onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">车系名称</td>
+    <td><input type="text" name="chexi_name" maxlength="60" value="{$chexi.chexi_name}" />{$lang.require_field}</td>
+  </tr>
+ <!-- <tr>
+    <td class="label">{$lang.site_url}</td>
+    <td><input type="text" name="site_url" maxlength="60" size="40" value="{$chexi.site_url}" /></td>
+  </tr>
+
+  <!--增加代码_start By www.ecshop120.com-->
+   <!--<tr>
+    <td class="label"><font color=#ff3300>自定义Title</font></td>
+    <td><input type="text" name="title_define" maxlength="60" size="60" value="{$chexi.title_define}" /></td>
+  </tr>-->
+  <!--增加代码_end By www.ecshop120.com-->
+  <!--代码增加 start By www.ecshop120.com-->
+    <!--<tr>
+        <td class="label"><font color=#ff3300>自定义URL：</font></td>
+      <td>
+	  <input type="text" name="define_url" value="{$chexi.define_url}" size="30"  />
+	  <input type="hidden" name="old_define_url" value="{$chexi.define_url}" />
+	  <br>
+	  <span class="notice-span">只允许输入数字、字母 以及 _ ，除此外不允许输入其他字符，尤其是不能输入中划线 - </span>
+	  </td>
+      </tr>-->
+  <!--代码增加 end By www.ecshop120.com
+
+  <!-- <tr>
+    <td class="label"><a href="javascript:showNotice('warn_chexilogo');" title="{$lang.form_notice}">
+        <img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.chexi_logo}</td>
+    <td><input type="file" name="chexi_logo" id="logo" size="45">{if $chexi.chexi_logo neq ""}<input type="button" value="{$lang.drop_chexi_logo}" onclick="if (confirm('{$lang.confirm_drop_logo}'))location.href='chexi.php?act=drop_logo&id={$chexi.chexi_id}'">{/if}
+    <br /><span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="warn_chexilogo">
+    {if $chexi.chexi_logo eq ''}
+    {$lang.up_chexilogo}
+    {else}
+    {$lang.warn_chexilogo}
+    {/if}
+    </span>
+    </td>
+  </tr>-->
+  <tr>
+    <td class="label">车系描述</td>
+    <td><textarea  name="chexi_desc" cols="60" rows="4"  >{$chexi.chexi_desc}</textarea></td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.sort_order}</td>
+    <td><input type="text" name="sort_order" maxlength="40" size="15" value="{$chexi.sort_order}" /></td>
+  </tr>
+  <tr>
+    <td class="label">是否显示</td>
+    <td><input type="radio" name="is_show" value="1" {if $chexi.is_show eq 1}checked="checked"{/if} /> {$lang.yes}
+        <input type="radio" name="is_show" value="0" {if $chexi.is_show eq 0}checked="checked"{/if} /> {$lang.no}
+        (当车系下还没有商品的时候，首页及分类页的l区将不会显示该车系。) 
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><br />
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="old_chexiname" value="{$chexi.chexi_name}" />
+      <input type="hidden" name="id" value="{$chexi.chexi_id}" />
+      <input type="hidden" name="old_chexilogo" value="{$chexi.chexi_logo}">
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+document.forms['theForm'].elements['chexi_name'].focus();
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("chexi_name",  no_chexiname);
+    validator.isNumber("sort_order", require_num, true);
+    return validator.passed();
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

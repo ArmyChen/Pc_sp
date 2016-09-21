@@ -1,0 +1,158 @@
+<?php
+$GLOBALS['smarty']->assign('goods_hot', get_goods_hot());
+?>
+<!DOCTYPE html>
+<html lang="en" data-dpr="1" style="font-size: 37px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+              <title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+
+                <link rel="stylesheet" href="{$xxxxxx_path}/css/swiper-3.3.1.min.css">
+        <link rel="stylesheet" href="{$xxxxxx_path}/css/style.css">
+        <link rel="stylesheet" href="{$xxxxxx_path}/css/grid.css">
+        <script src="{$xxxxxx_path}/js/flexible_0.3.4.js" type="text/javascript" charset="utf-8"></script><style>@charset "utf-8";html{color:#000;background:#fff;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}html *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}html,body{font-family:sans-serif}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}input,select,textarea{font-size:100%}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}abbr,acronym{border:0;font-variant:normal}del{text-decoration:line-through}address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:500}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:500}q:before,q:after{content:''}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}a:hover{text-decoration:underline}ins,a{text-decoration:none}</style>
+
+
+
+        <script src="{$xxxxxx_path}/js/jquery.min.js"></script>
+        <script src="{$xxxxxx_path}/js/swiper-3.3.1.min.js"></script>
+        <script type="text/javascript">var sid = 1, aid = 1, checkTimer = 0, vipType = 0, regTime = 0, resourceType = 0;</script>
+<script type="text/javascript" src="{$xxxxxx_path}/js/pay.js"></script>        <script type="text/javascript" src="{$xxxxxx_path}/js/wap_status"></script>
+        <script>
+            var $ = jQuery;
+            $(function(){
+                if(vipType==0){
+                    $(".openVIP").html("开通VIP");
+                }else if(vipType==1){
+                    $(".openVIP").html("白银VIP");
+                }else if(vipType==2){
+                    $(".openVIP").html("黄金VIP");
+                }else if(vipType==3){
+                    $(".openVIP").html("钻石VIP");
+                }                
+            });
+        </script>
+
+        <style>
+            .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+                height: auto;bottom: 0.78125rem;
+            }
+            .swiper-pagination-bullet{background: #fff}
+        </style>
+    <script type="text/javascript">resourceType=3;</script><script>
+    $(function () {       
+        $.getScript("http://user.airouba.com/index/loadimg1/id/39",function(){
+            
+            pics.forEach(function(i,e){
+               var html='<div class="swiper-slide"><img src="'+i+'" alt=""></div>';
+               $(html).appendTo($(".swiper-wrapper"));
+            });
+            $(".firstimg").remove();
+            var mySwiper = new Swiper('.swiper-container', {
+            loop: false,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            observe : true,
+            onSlideChangeStart: function(swiper){               
+                var activeIndex=mySwiper.activeIndex;                 
+                if(activeIndex==3&&vipType==0){                     
+                    interValPay();
+                    mySwiper.off();
+                    } 
+              },
+            onSlideChangeEnd: function(swiper){
+                var activeIndex=mySwiper.activeIndex+1;                
+                $(".nownub").text(activeIndex);
+              }  
+                 
+        });
+        });
+        
+    });
+    function interValPay(){        
+        pay();
+        setInterval('pay()',5000);
+    }
+</script><link href="{$xxxxxx_path}/css/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
+
+
+
+<body class="picPlay play" style="font-size: 12px;">
+    <header class="black-header fixed">
+        <a href="javascript:history.back()" class="back"></a>{$cat_info.cat_name}<a href="javascript:pay();" class="openVIP">开通VIP</a>
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section>
+        <div class="picTitle">性感美女南湘baby饱满酥胸很是诱人（<i class="nownub" style="font-style:normal">1</i>/11）</div>
+        <div class="picTip">温馨提示：支持左右滑动翻页浏览</div>
+        <div class="picContent">
+            <div class="swiper-container swiper-container-horizontal swiper-container-android">
+                <div class="swiper-wrapper">
+                    
+              
+
+
+
+ <!-- {foreach from=$pictures item=picture name=picture}-->
+		<div class="swiper-slide {if $smarty.foreach.picture.iteration eq 1}swiper-slide-active{/if}" {if $smarty.foreach.picture.iteration eq 2}swiper-slide-next{/if}" style="width: 584px;"><img src="{$picture.img_url}" alt=""></div>
+		    <!--{/foreach}-->
+
+
+
+
+
+		</div>
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-prev swiper-button-disabled"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </section>
+   <section class="picList clearfix">
+    <h3>激情视频<a href="search.php?intro=hot" class="fr more">+MORE</a></h3>
+   
+                
+		
+		
+
+{foreach from=$goods_hot  item=goods name=goods}
+
+ 		    
+    <div class="col-md-4">
+        <a href="{$goods.url}">
+            <div class="pl10">
+                <div class="relative"><img src="{$goods.goods_img}" alt="" ><span class="{if $goods.is_new eq 1}flag02{else}flag01{/if}"></span></div>
+                <div class="title">{$goods.name|escape:html}</div>
+            </div>
+        </a>
+    </div>   
+                
+    
+
+{/foreach}
+		
+               
+        
+</section>  
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body></html>

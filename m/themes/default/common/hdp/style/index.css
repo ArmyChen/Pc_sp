@@ -1,0 +1,9 @@
+.indexCon{overflow:hidden; margin:0 auto;  display:block; max-width:1920px; }
+.indexCon .flashBanner{ width:100%; text-align:left;}
+.flashBanner{position:relative;}
+.flashBanner .mask{height:15px;line-height:15px;width:100%;text-align:right;text-align:center;
+	position:relative;left:0;margin-top:-32px;filter:alpha(opacity=70);-moz-opacity:0.7;opacity:0.7; left: 45%;}
+.flashBanner .mask .smalldiv{vertical-align:middle;margin-right:10px;cursor:pointer; width:50px; height:10px; float:left;  background:#919191;}
+.flashBanner .mask .smalldiv.show{margin-bottom:3px; width:50px; height:10px; z-index:999;margin-right:10px;cursor:pointer; background:#ffba00;float:left;}
+img{}
+.indexCon .flashBanner .mark1 .mark2 img {   display:inline; }

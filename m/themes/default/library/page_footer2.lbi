@@ -1,0 +1,7 @@
+﻿<footer>
+    <a href="{$weburl}" class="icon1  active"></a>
+    <a href="{$weburl}/search.php" class="icon2 "></a>
+    <a href="{$weburl}/search.php?intro=best" class="icon3 "></a>
+    <a href="{$weburl}/mt" class="icon4 "></a>
+    <a href="{$weburl}/ours.php" class="icon5 "></a>
+</footer>

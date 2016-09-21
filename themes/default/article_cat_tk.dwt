@@ -1,0 +1,107 @@
+
+<?php
+
+$GLOBALS['smarty']->assign('article_tj',index_get_all_cat_articles_com(1)); //首页广告调用或者循环广告
+
+ ?>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{$xxxxxx_path}/style/index.css">
+        <script src="{$xxxxxx_path}/js/jquery.js"></script>
+	  <script src="{$xxxxxx_path}/js/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript">var sid=1,aid=1,checkTimer,vipType=0;</script> 
+        <script src="{$xxxxxx_path}/js/index.js"></script>
+        <script src="{$xxxxxx_path}/js/global.js"></script>
+
+       <title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+ </head>
+    <body>
+    	<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+        
+     
+        <script type="text/javascript">resourceType = 1;</script>
+        <style>
+            .h-user .enter span{	
+                display:inline-block;
+                color: #555;
+            }
+            .h-user .enter span a{
+                color: #555;
+            }
+        </style> 
+        <link rel="stylesheet" href="{$xxxxxx_path}/style/details.css">	
+        <div class="main piclist_main details_main clearfix">
+            <div class="piclist_in areaheart" style="width:1107px">
+                <div class="piclist_lf">
+                    <div class="title_pclt">
+                        <h2>{$cat_name}</h2>      
+                    </div>
+                    <div class="list clearfix">
+                        <ul>
+                                
+				<!-- {foreach from=$artciles_list item=article name=article } -->
+				<li>
+                                    <a href="{$article.url}"><img src="{$article.file_url}" alt="" height="278" width="200"></a>
+                                    <a class="name" href="{$article.url}">{$article.title}</a>
+                                    <span class="time">{$article.add_time}</span>
+                                </li>                             
+				{/foreach}
+				
+				</ul>
+                    </div>
+
+                    <div class="piclist_page page">
+                            <ul class="am-pagination">  <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem --></ul>                    </div>
+                </div>
+                <div class="piclist_rgt">
+                    <div id="detlist-ad" class="ad">
+                        <a href="javascript:;" class="pay-trigger">
+                            <img src="{$xxxxxx_path}/images/kt_vip.fw.png" alt="" height="465" width="330">
+                        </a>
+                    </div>
+                    <div class="top_list">
+                        <h3>热门排行</h3>
+                        <div class="list">
+                            <ul>
+
+
+			    <!-- {foreach from=$article_tj item=article name=article} -->
+			    {if $smarty.foreach.article.iteration< 6}
+                                <li>
+                                    <i>0{$smarty.foreach.article.iteration}</i>
+                                    <a href="{$article.url}"><img src="{$article.file_url}" alt="" height="83" width="60"></a>
+                                    <div class="xiangqing">
+                                        <a href="{$article.url}" class="title">{$article.title}</a>
+                                        <span>点击率：3655{$article.click_count}次</span><br>
+                                        <a href="{$article.url}">查看美图</a>
+                                    </div>
+                                </li>
+                                {/if}
+                               {/foreach}
+                            </ul>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+
+        </div>
+          
+    
+
+       
+
+
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+    
+</body></html>

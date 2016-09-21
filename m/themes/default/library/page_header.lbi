@@ -1,0 +1,26 @@
+<script type="text/javascript">
+var process_request = "{$lang.process_request}";
+</script>
+<!--Logo 开始--><div id="logo"><div class="WebLogo"><a href="{$weburl}"><img src="{$logo}"  /></a></div></div><!--Logo 结束-->
+
+<!--导航条 开始-->
+<div id="navigation"><table cellspacing="1" cellpadding="0"  align="center">
+<tr>
+<td><a href="{$weburl}"  title="网站首页" >首页</a></td>
+{foreach from=$navigator_list.middle item=nav key=key name=nav}
+{if $smarty.foreach.nav.iteration<4}
+<td>
+{if $nav.durl}  <a  href="{$nav.durl}"  {if $nav.active eq 1} class="cur"{/if} target=_blank >{$nav.name}</a>{else}<a  href="{$nav.url}" {if $nav.active eq 1} class="cur"{/if}>{$nav.name}</a>{/if}
+</td>
+{/if}
+{/foreach}
+</tr>
+<tr>
+{foreach from=$navigator_list.middle item=nav key=key name=nav}
+{if $smarty.foreach.nav.iteration>3 && $smarty.foreach.nav.iteration<8}
+<td>
+{if $nav.durl}  <a  href="{$nav.durl}"  {if $nav.active eq 1} class="cur"{/if} target=_blank >{$nav.name}</a>{else}<a  href="{$nav.url}" {if $nav.active eq 1} class="cur"{/if}>{$nav.name}</a>{/if}
+</td>
+{/if}
+ {/foreach}
+</tr><tr></tr></table></div>

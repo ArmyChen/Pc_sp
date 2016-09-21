@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-dpr="1" style="font-size: 37px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+                <link rel="stylesheet" href="{$xxxxxx_path}/css/swiper-3.3.1.min.css">
+        <link rel="stylesheet" href="{$xxxxxx_path}/css/style.css">
+        <link rel="stylesheet" href="{$xxxxxx_path}/css/grid.css">
+        <script src="{$xxxxxx_path}/js/flexible_0.3.4.js" type="text/javascript" charset="utf-8"></script>
+
+<style>@charset "utf-8";html{color:#000;background:#fff;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}html *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}html,body{font-family:sans-serif}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}input,select,textarea{font-size:100%}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}abbr,acronym{border:0;font-variant:normal}del{text-decoration:line-through}address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:500}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:500}q:before,q:after{content:''}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}a:hover{text-decoration:underline}ins,a{text-decoration:none}</style>
+<script src="{$xxxxxx_path}/js/jquery.min.js"></script>
+        <script src="{$xxxxxx_path}/js/swiper-3.3.1.min.js"></script>
+        <script type="text/javascript">var sid = 1, aid = 1, checkTimer = 0, vipType = 0, regTime = 0, resourceType = 0;</script>
+       <script type="text/javascript" src="{$xxxxxx_path}/js/pay.js"></script>
+        <script type="text/javascript" src="{$xxxxxx_path}/js/wap_status"></script>
+        <script>
+            var $ = jQuery;
+            $(function(){
+                if(vipType==0){
+                    $(".openVIP").html("开通VIP");
+                }else if(vipType==1){
+                    $(".openVIP").html("白银VIP");
+                }else if(vipType==2){
+                    $(".openVIP").html("黄金VIP");
+                }else if(vipType==3){
+                    $(".openVIP").html("钻石VIP");
+                }                
+            });
+        </script>
+        <style>
+            .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+                height: auto;bottom: 0.78125rem;
+            }
+            .swiper-pagination-bullet{background: #fff}
+        </style>
+    <script type="text/javascript">resourceType=2;</script><script type="text/javascript">
+    $(function(){
+        var userType='',userInfo='';
+	if(regTime) $(".payDate").html(regTime);	
+	switch(vipType){
+		case 1 : userType='白银VIP'; userInfo='可浏览美图';  break;
+		case 2 : userType='黄金VIP'; userInfo='可浏览美图和非钻石视频'; break;
+		case 3 : userType='钻石VIP'; userInfo='可浏览美图和所有视频'; break;
+		default : userType='游客'; userInfo='激情视频等你来看！';
+		}
+	$(".userType").html(userType);
+	$(".userInfo").html(userInfo);	
+    });
+</script><link href="{$xxxxxx_path}/css/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
+
+
+
+<body class="member play" style="font-size: 12px;">
+    <header class="black-header">
+        <a href="javascript:history.back()" class="back"></a>会员中心
+    </header>
+	<section class="vip">
+		<a href="">
+			<div class="vipimg"><img src="{$xxxxxx_path}/images/d2d743f1gw1f5x1gkuwosj20ku07xt9a.jpg" alt=""></div>
+		</a>
+	</section>
+	<section>
+		<div class="userinfo dot">
+			<p class="gray">会员类型</p>
+			<p class="userType">游客</p>
+		</div>
+		<div class="userinfo" onclick="pay()">
+			<p class="gray">支付日期</p>
+			<p class="payDate">购买VIP</p>
+		</div>
+	</section>
+	<section class="tip clearfix userInfo">激情视频等你来看！</section>
+	<section class="listLink">
+		<a href="{$weburl}tips.php">
+			<div class="list-icon1 list">自助激活<i></i></div>
+		</a>
+		<a href="javascript:pay();">
+			<div class="list-icon2 list" >购买会员<i></i></div>
+		</a>
+		<!--<a href="">
+			<div class="list-icon3 list">用户反馈<i></i></div>
+		</a>-->
+		<!--<a href="">
+			<div class="list-icon4 list">用户协议<i></i></div>
+		</a>-->
+	</section>
+    
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+
+
+ </body></html>

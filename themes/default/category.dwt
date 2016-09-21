@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{$xxxxxx_path}/style/index.css">
+        <script src="{$xxxxxx_path}/js/jquery.js"></script>
+	  <script src="{$xxxxxx_path}/js/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript">var sid=1,aid=1,checkTimer,vipType=0;</script> 
+        <script src="{$xxxxxx_path}/js/index.js"></script>
+        <script src="{$xxxxxx_path}/js/global.js"></script>
+       <title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+</head>
+    <body>
+    	    	<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<script type="text/javascript">resourceType=2;</script>
+<link rel="stylesheet" href="{$xxxxxx_path}/style/channel.css">   	
+    	<div class="main">
+    		<div class="main-in areaheart">
+    			<div class="main-01 area">
+    				<div class="main-top">
+    					<div class="content-right">
+    						
+    					</div>
+    					<div class="content-left">
+    						<h2>{$cat_name}</h2>
+    					</div>
+    				</div>
+    				<div class="main-show">
+    					<ul class="video">
+
+
+					{foreach from=$goods_list  item=goods name=index_goods}
+					{if $goods.name }
+                                                <li {if $smarty.foreach.index_goods.iteration%6== 0}style="margin-right:0px;"{/if}>
+						
+                            <a class="" href="{$goods.url}">
+                                <i>
+				<img src="{$xxxxxx_path}/images/{if $goods.is_new eq 1}vip.jpg{else}shikan.jpg{/if}" alt="" height="47" width="48">
+			
+			
+				</i>
+                                <img src="{$goods.goods_thumb}" height="238" width="180">
+                                <p>{$goods.name} </p>
+                                <em></em>
+                            </a>
+                        </li>
+                               {/if}
+{/foreach}             
+                            						
+
+                            
+    					</ul>
+                        <div class="page">
+                            <ul class="p-list">
+                             <!-- #BeginLibraryItem "/library/pages.lbi" --><!-- #EndLibraryItem -->                          </ul>
+                        </div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->   
+    
+</body></html>

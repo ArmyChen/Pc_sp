@@ -1,0 +1,173 @@
+{if $full_page}
+{include file="pageheader.htm"}
+{insert_scripts files="../js/utils.js,listtable.js"}
+<!-- 订单搜索 -->
+<div class="form-div">
+  <form action="javascript:searchOrder()" name="searchForm">
+    <img src="images/icon_search.gif" width="26" height="22" border="0" alt="SEARCH" />
+    {$lang.order_sn}<input name="order_sn" type="text" id="order_sn" size="15">
+    {$lang.consignee|escape}<input name="consignee" type="text" id="consignee" size="15">
+    {$lang.all_status}
+    <select name="status" id="status">
+      <option value="-1">{$lang.select_please}</option>
+      {html_options options=$status_list}
+    </select>
+    <input type="submit" value="{$lang.button_search}" class="button" />
+    <a href="order.php?act=list&composite_status={$os_unconfirmed}">{$lang.cs.$os_unconfirmed}</a>
+    <a href="order.php?act=list&composite_status={$cs_await_pay}">{$lang.cs.$cs_await_pay}</a>
+    <a href="order.php?act=list&composite_status={$cs_await_ship}">{$lang.cs.$cs_await_ship}</a>
+  </form>
+</div>
+
+<!-- 订单列表 -->
+<form method="post" action="" name="listForm" onsubmit="return confirmSubmit(this)">
+
+  <div class="list-div" id="listDiv">
+{/if}
+
+<table cellpadding="3" cellspacing="1">
+  <tr>
+    <th>
+      <input onclick='listTable.selectAll(this, "checkboxes")' type="checkbox" /><a href="javascript:listTable.sort('order_sn', 'DESC'); ">{$lang.order_sn}</a>{$sort_order_sn}
+    </th>
+    <th><a href="javascript:listTable.sort('add_time', 'DESC'); ">{$lang.order_time}</a>{$sort_order_time}</th>
+    <th><a href="javascript:listTable.sort('consignee', 'DESC'); ">{$lang.consignee}</a>{$sort_consignee}</th>
+    <th><a href="javascript:listTable.sort('total_fee', 'DESC'); ">{$lang.total_fee}</a>{$sort_total_fee}</th>
+    <th><a href="javascript:listTable.sort('order_amount', 'DESC'); ">{$lang.order_amount}</a>{$sort_order_amount}</th>
+    <th>{$lang.all_status}</th>
+    <th>{$lang.handler}</th>
+  <tr>
+  {foreach from=$order_list item=order key=okey}
+  <tr>
+    <td valign="top" nowrap="nowrap">
+	
+	<input type="checkbox" name="checkboxes[]" value="{$order.order_id}" />
+	<a href="order.php?act=info&order_id={$order.order_id}" id="order_{$okey}">{$order.order_sn}{if $order.extension_code eq "group_buy"}<br /><div align="center">{$lang.group_buy}</div>{elseif $order.extension_code eq "exchange_goods"}<br /><div align="center">{$lang.exchange_goods}</div>{/if}</a></td>
+    <td>{$order.buyer|escape}<br />{$order.short_order_time}</td>
+    <td align="left" valign="top"><a href="mailto:{$order.email}"> {$order.consignee|escape}</a>{if $order.tel} [TEL: {$order.tel|escape}]{/if} <br />{$order.address|escape}</td>
+    <td align="right" valign="top" nowrap="nowrap">{$order.formated_total_fee}</td>
+    <td align="right" valign="top" nowrap="nowrap">{$order.formated_order_amount}</td>
+    <td align="center" valign="top" nowrap="nowrap">{$lang.os[$order.order_status]},{$lang.ps[$order.pay_status]},{$lang.ss[$order.shipping_status]}</td>
+    <td align="center" valign="top"  nowrap="nowrap">
+     <a href="order.php?act=info&order_id={$order.order_id}">{$lang.detail}</a>
+     {if $order.can_remove}
+     <br /><a href="javascript:;" onclick="listTable.remove({$order.order_id}, remove_confirm, 'remove_order')">{$lang.remove}</a>
+     {/if}
+    </td>
+  </tr>
+  {/foreach}
+</table>
+
+<!-- 分页 -->
+<table id="page-table" cellspacing="0">
+  <tr>
+    <td align="right" nowrap="true">
+    {include file="page.htm"}
+    </td>
+  </tr>
+</table>
+
+{if $full_page}
+  </div>
+  <div>
+
+
+ <input type="hidden" name="act" value="batch" />
+  <select name="type" id="selAction" onchange="changeAction()">
+    <option value="">{$lang.select_please}</option>
+   <option value="move_to">订单分派</option>
+   
+  </select>
+
+
+
+
+
+  <select name="target_cat"  style="display:none">
+	<option value="0">{$lang.select_please}</option>
+    {html_options options=$songcanyuan_list}
+  </select>
+
+  <input type="hidden" name="extension_code" value="{$code}" />
+
+{$code}sss
+  <input type="submit" value="{$lang.button_submit}" id="btnSubmit" name="btnSubmit" class="button" disabled="true" />
+
+
+
+
+    <input name="invalid" type="submit" id="btnSubmit1" value="{$lang.op_invalid}" class="button" disabled="true" onclick="this.form.target = '_self'" />
+    <input name="cancel" type="submit" id="btnSubmit2" value="{$lang.op_cancel}" class="button" disabled="true" onclick="this.form.target = '_self'" />
+    <input name="remove" type="submit" id="btnSubmit3" value="{$lang.remove}" class="button" disabled="true" onclick="this.form.target = '_self'" />
+    
+    <input name="batch" type="hidden" value="1" />
+    <input name="order_id" type="hidden" value="" />
+  </div>
+</form>
+<script type="text/javascript">
+  listTable.recordCount = {$record_count};
+  listTable.pageCount = {$page_count};
+
+  {foreach from=$filter item=item key=key}
+  listTable.filter.{$key} = '{$item}';
+  {/foreach}
+
+  {literal}
+  onload = function()
+  {
+    startCheckOrder(); // 开始检查订单
+    document.forms['listForm'].reset();
+  }
+
+  /**
+   * @param: bool ext 其他条件：用于转移分类
+   */
+  function confirmSubmit(frm, ext)
+  {
+      if (frm.elements['type'].value == 'trash')
+      {
+          return confirm(batch_trash_confirm);
+      }
+      else if (frm.elements['type'].value == 'not_on_sale')
+      {
+          return confirm(batch_no_on_sale);
+      }
+      else if (frm.elements['type'].value == 'move_to')
+      {
+          ext = (ext == undefined) ? true : ext;
+          return ext && frm.elements['target_cat'].value != 0;
+      }
+      else if (frm.elements['type'].value == '')
+      {
+          return false;
+      }
+      else
+      {
+          return true;
+      }
+  }
+
+  function changeAction()
+  {
+      var frm = document.forms['listForm'];
+
+      // 切换分类列表的显示
+      frm.elements['target_cat'].style.display = frm.elements['type'].value == 'move_to' ? '' : 'none';
+			
+			{if $suppliers_list > 0}
+      frm.elements['suppliers_id'].style.display = frm.elements['type'].value == 'suppliers_move_to' ? '' : 'none';
+			{/if}
+
+      if (!document.getElementById('btnSubmit').disabled &&
+          confirmSubmit(frm, false))
+      {
+          frm.submit();
+      }
+  }
+{/literal}
+</script>
+
+{/literal}
+
+{include file="pagefooter.htm"}
+{/if}

@@ -1,0 +1,92 @@
+<?php
+
+$GLOBALS['smarty']->assign('index_ad',index_ad_sy_diy(118)); //首页广告调用或者循环广告
+
+ ?>
+
+
+
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{$xxxxxx_path}/style/index.css">
+        <script src="{$xxxxxx_path}/js/jquery.js"></script>
+        <script type="text/javascript">var sid=1,aid=1,checkTimer,vipType=0;</script> 
+        <script src="{$xxxxxx_path}/js/index.js"></script>
+        <script src="{$xxxxxx_path}/js/global.js"></script>
+       <title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+            </head>
+    <body>
+    	<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+<script type="text/javascript">resourceType=2;</script>
+    	<div class="banner">
+    		<div class="banner-bg">
+            </div>
+            <div class="banner-big">
+                <ul style="left: -2360px;" class="list" id="list">
+
+		   <!--{foreach from=$index_ad item=ad  name=index_ads key=key }-->	  
+                                <li>
+                    <a href="{$ad.url}" target="_blank">
+                        <img src="{$ad.file_url}" height="446" width="1180">
+                    </a>
+                </li>
+                  
+		   <!--{/foreach}-->     
+		  </ul>
+            </div>
+            <div class="banner-small">
+                <ol class="turn" id="turn">
+		 <!--{foreach from=$index_ad item=ad  name=index_ads key=key }-->
+                                
+                                <li {if $smarty.foreach.index_ads.iteration eq 1}class="current"{/if}{if $smarty.foreach.index_ads.last}class="last"{/if}>
+				<img src="{$ad.file_url}" height="88" width="232"></li>
+                              
+                               <!--{/foreach}-->     
+                                    
+                </ol>
+            </div>
+    	</div>    	<div class="main">
+    		<div class="main-in areaheart">
+
+<!--{foreach from=get_categories_tree_index() item=cat name=cat_tree}-->
+
+    			<div class="main-01 area">
+    <div class="main-top">
+        <div class="content-right">
+            <a target="_blank" href="{$cat.url}" class="more">更多+</a>
+        </div>
+        <div class="content-left">
+            <h2>{$cat.name|escape:html}</h2>
+        </div>
+    </div>
+    <div class="main-show">
+        <ul class="video">
+
+ <!--{foreach from=$cat.catgoodslist item=goods name=goods}-->
+
+                 <li>
+                <a target="_blank" href="{$goods.url}">
+                    <i><img src="{$xxxxxx_path}/images/7ad67e6fgw1f5oxshm0nlj201c01cwe9.png" alt="" height="47" width="48"></i>
+                    <img src="{$goods.goods_img}" class="litpic">
+                    <p>{$goods.name|escape:html}</p>
+                    <em></em>
+                </a>
+            </li>
+                
+              {/foreach}        
+          
+        </ul>
+    </div>
+</div> 
+
+  {/foreach}
+</div>
+    	</div>
+
+      
+     	<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body></html>

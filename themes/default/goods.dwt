@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{$xxxxxx_path}/style/index.css">
+        <script src="{$xxxxxx_path}/js/jquery.js"></script>
+	  <script src="{$xxxxxx_path}/js/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript">var sid=1,aid=1,checkTimer,vipType=0;</script> 
+        <script src="{$xxxxxx_path}/js/index.js"></script>
+        <script src="{$xxxxxx_path}/js/global.js"></script>
+
+       <title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+ </head>
+    <body>
+    	<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+
+<script type="text/javascript">resourceType=2;</script>
+<link rel="stylesheet" href="{$xxxxxx_path}/style/channel.css">
+<link rel="stylesheet" href="{$xxxxxx_path}/style/goods.css">
+<script type="text/javascript">
+
+$(function(){
+	if(vipType==2){
+		$(".try a").html("立即播放");
+		$(".buy a").html("已开通VIP");  
+		}
+	else{
+		
+		}	
+	});
+
+	
+</script>
+    	<div class="details clearfix">
+            <div class="details-in areaheart">
+                <div class="d-left">
+                    <div class="matter01 mb">
+                        <div {if $goods.is_new}class="pic-left"{else}class="pic-lefts"{/if}>
+                            <img src="{$goods.goods_img}" alt="" height="264" width="200">
+                        </div>
+                        <div class="introduce">
+                            <div class="video-h pl">
+                                <h3>{$goods.goods_name}</h3>
+                            </div>
+                            <div class="video-d pl">
+                               {$goods.goods_brief}
+                                <!--<p>
+                                    <span>价格：<i>9积分</i></span>
+                                    <span>VIP年会员：<i>免费</i></span>
+                                </p>-->
+                            </div>
+                            <div class="video-p">
+                                <ul class="pay">
+                                	
+                                    <li class="try"><a href="{$weburl}/play/{$goods.goods_id}.html">正片播放</a></li>
+                                    <li class="buy pay-trigger"><a href="javascript:;">立即购买</a></li>
+                                    <li class="download"><a href="{$weburl}/play/{$goods.goods_id}.html#download">立即下载</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="matter02 mb">
+                        <h2>视频介绍</h2>
+                        <p>{$goods.goods_desc}</p>
+                    </div>
+                    
+                    <div class="matter04">
+                        <h2>相关推荐</h2>
+                        <ul class="recommend">
+
+<!--{foreach from=$goods_new  item=goods  name=goods_com}--> 
+                            <li {if $smarty.foreach.goods_com.iteration%5== 0}style="margin-right:0px;"{/if}>
+    <a href="{$goods.url}">
+   
+        <img src="{$goods.goods_img}" alt="" height="198" width="150">
+        <p>{$goods.name|escape:html}</p>
+        <em></em>
+    </a>
+</li>
+<!-- {/foreach} -->
+                        </ul>
+                    </div>
+                    
+                    
+                    
+                </div>
+                <div class="d-right">
+                    <div class="aside01 mb pay-trigger" id="ktvip">
+                        <a href="#">
+                            <img src="{$xxxxxx_path}/images/7ad67e6fgw1f5oy1eah9sj207e0ahdm5.png" alt="">
+                        </a>
+                    </div>
+                    <div class="aside02 mb">
+                        <h2>热门排行</h2>
+                        <ul class="hot">
+       <!--{foreach from=$goods_hot  item=goods  name=goods_hot}--> 
+           {if $smarty.foreach.goods_hot.iteration<11}         
+         		 <li>
+            <i class="hotter">{$smarty.foreach.goods_hot.iteration}</i>
+            <a href="{$goods.url}">{$goods.name|escape:html}</a>
+         </li>	
+	 {/if} 
+         <!-- {/foreach} -->
+                                 </ul>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+    
+</body></html>

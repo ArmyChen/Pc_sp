@@ -1,0 +1,279 @@
+<div class="footer">    
+    <div class="footer-in areaheart">
+        <div class="f-left">
+            <ul class="list">
+                <!--<li><a href="#">关于会员</a></li>
+                <li><a href="#">注册协议</a></li>-->
+                <li><a href="#">意见反馈</a></li>
+                <li class="last"><a href="#">联系方式</a></li>
+                
+
+            </ul>
+        </div>
+        <div class="f-right">
+            Copyright © {$shop_name}.2016 All Rights Reserved.
+            
+        </div>
+    </div>
+</div>  	
+<!-------------------- 右侧导航 ------------------>
+<div style="display: block;" class="right-nav">
+    <ul class="r-nav">
+        <li class="part01"></li>
+        <li class="part02"></li>
+        <li class="part03"></li>
+        <li class="part04"></li>
+        <li class="part05"></li>
+        <li class="part06"></li>
+        <li class="gotop"></li>
+    </ul>
+</div>
+<div class="gray"></div>       
+        <!-- 登录 -->
+        <div class="loginbox">
+            <div class="login-left tcbg">
+                <img src="{$xxxxxx_path}/images/login.jpg" height="300" width="238">
+            </div>
+            <div class="login-right tcright">
+                <h3 id="login-title">账号登录</h3>
+                <!-- 登录表单 -->
+                <form action="{$weburl}" method="post" name="loginform">
+                    <!-- 用户名 -->
+                    <div class="username">                        
+                        <input id="txt" placeholder="支付宝/微信订单号" class="txt bd" name="tradeno" type="text"><br>
+                    </div>
+                    <!-- 密码 -->
+                    <!--<div class="password">                       
+                        <input id="dl-pwd" placeholder="密码" class="pwd bd" type="password" name="pwd"><br/>
+                    </div>-->
+                    <!-- 登录 -->
+                    <p style="width:266px; padding:15px 0; color:red;">登录提示：支付完成之后，在支付宝或微信中获取订单号，即可登录，永久有效</p>
+                    <div class="denglu">
+                        <input class="ckbox" checked="checked" type="checkbox">
+                        记住登录状态 
+                        <input class="lgin bd" value="登录" type="submit">
+                    </div>
+                    <!-- 注册和找回密码 -->
+                    <!--<div class="ljzc">
+                        <a id="ljzc" href="#">立即注册 </a>或
+                        <a id="zhmm" href="#"> 找回密码</a>
+                    </div>-->
+                </form>
+            </div>
+            <div class="close">
+                <img src="{$xxxxxx_path}/images/close.jpg" alt="">
+            </div>
+        </div>  
+<div class="paybox">
+	<script type="text/javascript">                	
+        $(function(){            
+			$("input:radio[name='payType']").change(function(){
+		
+var payType=$("input:radio[name='payType']:checked").val();
+//alert(payType);
+
+loadPayInfo(resourceType=2,payType);
+
+
+				});
+
+
+			$(".vipType").click(function(){
+				var current=$(".vipType").index($(".vipType.cur"));
+				var target=$(".vipType").index(this);
+				if(current==target) return false;
+				resourceType=target+1;
+				//alert(resourceType);
+	var payType=$("input:radio[name='payType']:checked").val();
+    // alert(payType);
+
+
+
+
+				loadPayInfo(resourceType,payType);
+				});	
+			
+			
+            });
+		
+		function getDevice(){
+			var sUserAgent= navigator.userAgent.toLowerCase(); 
+			var bIsIpad= sUserAgent.match(/ipad/i) == "ipad"; 
+			var bIsIphoneOs= sUserAgent.match(/iphone/i) == "iphone";
+			var bIsMidp= sUserAgent.match(/midp/i) == "midp";
+			var bIsUc7= sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+			var bIsUc= sUserAgent.match(/ucweb/i) == "ucweb";
+			var bIsAndroid= sUserAgent.match(/android/i) == "android";
+			var bIsCE= sUserAgent.match(/windows ce/i) == "windows ce";
+			var bIsWM= sUserAgent.match(/windows mobile/i) == "windows mobile";
+			if(bIsAndroid){
+				 return "android";
+				}
+			else if(bIsIpad||bIsIphoneOs){
+				 return "ios";
+				}
+			else return "pc"	
+			}
+			
+		function loadPayInfo(resourceType,payType){	
+		
+
+		
+			
+
+
+
+//alert(payType);
+
+if(resourceType==2&&payType=='alipay')
+{
+$("#payimg").attr("src","{$xxxxxx_path}/images/alipay36.jpg"); 
+$("#suomin").html("若激活不成功，表示系统订单未同步，请等待5分钟重试。若仍不行，可点击右下角“意见反馈”反应情况1"); 
+$("#sprice").html("36"); 
+$("#payInfo").html("享有美图及非钻石视频权限"); 
+var target=resourceType-1;
+$(".vipType.cur").removeClass("cur");
+$(".vipType").eq(target).addClass("cur");
+$('#pwzfw').css('display','none');
+$('#pwzfa').css('display','block');
+}
+if(resourceType==3&&payType=='alipay')
+{
+$("#payimg").attr("src","{$xxxxxx_path}/images/alipay72.jpg");
+$("#suomin").html("若激活不成功，表示系统订单未同步，请等待5分钟重试。若仍不行，可点击右下角“意见反馈”反应情况2"); 
+$("#sprice").html("72"); 
+$("#payInfo").html("免费浏览全站所有资源"); 
+var target=resourceType-1;
+$(".vipType.cur").removeClass("cur");
+$(".vipType").eq(target).addClass("cur");
+$('#pwzfw').css('display','none');
+$('#pwzfa').css('display','block');
+}
+
+if(resourceType==2&&payType=='weixin')
+{
+$("#payimg").attr("src","{$xxxxxx_path}/images/weixin36.jpg"); 
+$("#suomin").html("扫码支付完成之后刷新页面，尽享奇妙之旅！"); 
+$("#sprice").html("36"); 
+$("#payInfo").html("享有美图及非钻石视频权限"); 
+var target=resourceType-1;
+$(".vipType.cur").removeClass("cur");
+$(".vipType").eq(target).addClass("cur");
+$('#pwzfw').css('display','block');
+$('#pwzfa').css('display','none');
+}
+if(resourceType==3&&payType=='weixin')
+{
+$("#payimg").attr("src","{$xxxxxx_path}/images/weixin72.jpg");
+$("#suomin").html("扫码支付完成之后刷新页面，尽享奇妙之旅！"); 
+$("#sprice").html("72"); 
+$("#payInfo").html("免费浏览全站所有资源"); 
+var target=resourceType-1;
+$(".vipType.cur").removeClass("cur");
+$(".vipType").eq(target).addClass("cur");
+$('#pwzfw').css('display','block');
+$('#pwzfa').css('display','none');
+}
+
+
+
+		
+			
+
+
+
+			                                            
+			}
+		
+		function ali_active(){
+			var tradeno=$("#ali_tradeno").val(),btn=$(".tjiao");
+			btn.html("正在激活...");
+			$.getScript("http://api.maoliangdong.com/newActiveOrder.php?tradeno="+tradeno+"&sid="+sid+"&aid="+aid,function(){ 
+				if(activeResult==1){					
+					btn.html("激活成功，页面正在跳转");
+					$.getScript("http://user.airouba.com/index/renew_vip_statu/id/"+orderId+"/name/"+tradeno);	
+					location.reload();
+					}
+				else{
+					btn.html("激活失败，请稍候重试");
+					}	
+				})
+			}	
+			
+    </script>
+            <div class="pay-lf">
+                <img src="{$xxxxxx_path}/images/d2d743f1gw1f4daa4fnuvj209v0cimyo.jpg" alt="" height="450" width="355">
+            </div>
+            <div class="pay-main">
+                    <div class="pay-way">
+                        <span>支付方式：</span>
+                        <input id="weixin" value="weixin" class="p-wx" name="payType" checked="checked" type="radio">
+                        <input id="zhifubao" value="alipay" class="p-zfb" name="payType" type="radio">
+                        <i></i>
+                        <em></em> 
+                    </div>
+                    
+                    
+
+
+
+
+
+
+
+
+<div class="pay-name"> 
+                        <span>会员类型：<i class="vipType   vipType-image">白银VIP</i> <i class="cur vipType">黄金VIP</i> <i class="vipType">钻石VIP</i></span>
+                        <p id="payInfo"></p>
+                    </div>
+
+
+                    <div class="pay">
+
+                   <div class="pay-pic">
+                        <span>单　　价：</span>
+                        <b><i id="sprice">36</i>元<em>（一次购买，永久有效）</em></b>
+                    </div>
+
+                        <span>使用说明：</span>
+                           <i id="suomin">扫码支付完成之后刷新页面，尽享奇妙之旅！</i>
+			   <img id="payimg" src="{$xxxxxx_path}/images/weixin36.jpg" alt="" height="160" width="160">
+                       </div>
+		    
+		      
+		      
+		      <div id="pwzfa" style="display:none;">
+                        <input class="ddh" id="ali_tradeno" placeholder="请输入支付宝订单号" type="text">
+                        <a style="display:inline-block;" class="tjiao" href="javascript:ali_active();">激活</a>
+                        <span>（<a href="http://jingyan.baidu.com/article/64d05a024c8579de55f73b3f.html" target="_blank">如何获取?</a>）</span>
+                    </div>
+
+		    <div id="pwzfw" style="display:block;text-align:center;">
+                        <br><img width="164" height="40" alt="" src="{$xxxxxx_path}/images/d2d743f1gw1f5mi8gtxb8j204k014mwz.jpg">
+                    </div>
+
+           
+
+
+
+
+
+
+
+
+
+		    <div style="clear:both;"></div>
+                  
+                   
+            </div>
+            <div class="pay-rgt" > <div class="close">
+                <img alt="" src="{$xxxxxx_path}/images/close.jpg">
+            </div>
+                <img id="wxpic" src="{$xxxxxx_path}/images/d2d743f1gw1f5mi7eyuivj207k0a8t8r.jpg" alt="" height="368" width="272">
+                <img id="zfpic" src="{$xxxxxx_path}/images/d2d743f1gw1f5miaabvdlg20800auaa5.gif" alt="" height="390" width="288">
+            </div>
+        </div> 
+	<div style="display:none;">
+        <a id="buynow"></a>
+        <iframe id="dlframe"></iframe>
+        </div>

@@ -1,0 +1,166 @@
+<?php
+
+$GLOBALS['smarty']->assign('ad7',index_ad_sy_diy(7)); //首页广告调用或者循环广告
+$GLOBALS['smarty']->assign('ad8',index_ad_sy_diy(8)); //首页广告调用或者循环广告
+ ?>
+
+<!DOCTYPE html>
+<html lang="en" data-dpr="1" style="font-size: 37px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title>{$page_title}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+                <link rel="stylesheet" href="{$xxxxxx_path}/css/swiper-3.3.1.min.css">
+        <link rel="stylesheet" href="{$xxxxxx_path}/css/style.css">
+        <link rel="stylesheet" href="{$xxxxxx_path}/css/grid.css">
+        <script src="{$xxxxxx_path}/js/flexible_0.3.4.js" type="text/javascript" charset="utf-8"></script>
+
+<style>@charset "utf-8";html{color:#000;background:#fff;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}html *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}html,body{font-family:sans-serif}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}input,select,textarea{font-size:100%}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}abbr,acronym{border:0;font-variant:normal}del{text-decoration:line-through}address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:500}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:500}q:before,q:after{content:''}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}a:hover{text-decoration:underline}ins,a{text-decoration:none}</style>
+<script src="{$xxxxxx_path}/js/jquery.min.js"></script>
+        <script src="{$xxxxxx_path}/js/swiper-3.3.1.min.js"></script>
+        <script type="text/javascript">var sid = 1, aid = 1, checkTimer = 0, vipType = 0, regTime = 0, resourceType = 0;</script>
+       <script type="text/javascript" src="{$xxxxxx_path}/js/pay.js"></script>
+        <script type="text/javascript" src="{$xxxxxx_path}/js/wap_status"></script>
+        <script>
+            var $ = jQuery;
+            $(function(){
+                if(vipType==0){
+                    $(".openVIP").html("开通VIP");
+                }else if(vipType==1){
+                    $(".openVIP").html("白银VIP");
+                }else if(vipType==2){
+                    $(".openVIP").html("黄金VIP");
+                }else if(vipType==3){
+                    $(".openVIP").html("钻石VIP");
+                }                
+            });
+        </script>
+        <style>
+            .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+                height: auto;bottom: 0.78125rem;
+            }
+            .swiper-pagination-bullet{background: #fff}
+        </style>
+    <script>
+    $(function () {
+        var mySwiper = new Swiper('.swiper-container', {
+            loop: true,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            loop:false
+        });
+
+        $(".alipaySubmit").click(function (e) {
+            var activeBtn = $(this);
+            $(".activeResult").html("正在激活");
+            var tradeno = activeBtn.prev('input').val();
+            if (isNaN(tradeno) || tradeno == '') {
+                $(".activeResult").html("请填写订单号");
+                return false;
+            } else {
+                $.getScript("http://api.maoliangdong.com/newActiveOrder.php?tradeno=" + tradeno + "&sid=" + sid + "&aid=" + aid + "&device=wap", function () {
+                    if (activeResult == 1) {
+                        $(".activeResult").html("激活成功，页面正在跳转");
+                        if (isSafari()) {
+                            location.href = "http://user.airouba.com/index/login/tradeno/" + tradeno;
+                        } else {
+                            $.getScript("http://user.airouba.com/index/renew_vip_statu/id/" + orderId + "/name/" + tradeno);
+                            setCookie("tradeno", tradeno, 30);
+                            setTimeout(function () {
+                                location.href = '/';
+                            }, 2000);
+                        }
+
+                    } else {
+                        $(".activeResult").html("激活失败，请稍候重试。若激活不成功，表示系统订单未同步，请等待5分钟重试。若仍不行，请返回首页，进入“我们->投诉建议”反应情况");
+                    }
+                });
+            }
+        });
+
+    });
+</script><style>
+    #ewm { width:40% !important; margin-bottom:15px; }    
+</style></head>
+
+
+
+<body class="alipay" style="font-size: 12px;">
+    <header class="black-header">
+
+        <a href="javascript:history.back()" class="back"></a>支付宝付款
+    </header>
+    <section class="pd10 ewm">
+        <div class="text-center">
+
+
+
+
+
+ {if $vipType_id eq 1}
+
+<!--{foreach from=$ad7 item=ad  name=index_ads key=key }-->
+<img id="ewm"  src="{$weburl}{$ad.file_url}">
+ <a  href="{$ad.url}" target="_blank" id="alipay_btn"><img src="{$xxxxxx_path}/images/d2d743f1gw1f5x0cex20wj20cs020a9z.jpg" alt=""></a>
+<!--{/foreach}--> 
+{/if}
+
+
+ {if $vipType_id eq 2}
+<!--{foreach from=$ad8 item=ad  name=index_ads key=key }-->
+<img id="ewm"  src="{$weburl}{$ad.file_url}">
+ <a  href="{$ad.url}" target="_blank" id="alipay_btn"><img src="{$xxxxxx_path}/images/d2d743f1gw1f5x0cex20wj20cs020a9z.jpg" alt=""></a>
+<!--{/foreach}--> 
+{/if}
+
+
+
+
+
+
+   
+
+
+
+
+
+
+        </div>
+        <div class="main">
+            <h3 class="font16">支付说明：</h3>
+            <div class="mainTip">
+                <p>safari浏览器不能自动打开支付宝，请点支付按钮，或扫码支付</p>    
+                <p>支付完成之后，获取订单号（<span class="blue">如何获取</span>？），在下方输入订单号并<span class="blue">激活</span>，即享激情大片。</p>
+            </div>
+            <div class="formBox">               
+                <input type="text" class="alipayOrder" placeholder="请输入您的支付宝商户单号">
+                <input type="submit" value="激活" class="alipaySubmit">
+                <p class="activeResult" style="color:red; text-align:left;"></p>
+            </div>
+            <div class="picContent">
+                <div class="swiper-container swiper-container-horizontal">
+                    <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                        <div class="swiper-slide swiper-slide-active" style="width: 734px;"><img src="{$xxxxxx_path}/images/d2d743f1gw1f5x0crhcezj20j20xwn3g.jpg" alt=""></div>
+                        <div class="swiper-slide swiper-slide-next" style="width: 734px;"><img src="{$xxxxxx_path}/images/d2d743f1gw1f5x0cuqdrpj20j20xwgra.jpg" alt=""></div>
+                        <div class="swiper-slide" style="width: 734px;"><img src="{$xxxxxx_path}/images/d2d743f1gw1f5x0cx87rjj20ku112wgl.jpg" alt=""></div>
+                    </div>
+                    <!-- 如果需要导航按钮 -->
+                    <div class="swiper-button-prev swiper-button-disabled"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <iframe id="payFrame" name="payFrame" src="{$xxxxxx_path}/images/fkx07283rmuxjrtvdauzs21.html" style="display:none;"></iframe>
+<iframe style="display:none;" id="tiao_iframe_xxxx"></iframe>
+
+<footer>
+    <a href="{$weburl}" class="icon1  active"></a>
+    <a href="{$weburl}/search.php" class="icon2 "></a>
+    <a href="{$weburl}/search.php?intro=best" class="icon3 "></a>
+    <a href="{$weburl}/mt" class="icon4 "></a>
+    <a href="{$weburl}/ours.php" class="icon5 "></a>
+</footer>
+
+
+
+ </body></html>

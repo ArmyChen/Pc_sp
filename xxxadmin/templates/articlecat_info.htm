@@ -1,0 +1,163 @@
+{include file="pageheader.htm"}
+<div class="main-div">
+<form method="post" action="articlecat.php" name="theForm"  onsubmit="return validate()">
+<table cellspacing="1" cellpadding="3" width="100%">
+  <tr>
+    <td class="label">{$lang.cat_name}</td>
+    <td><input type="text" name="cat_name" maxlength="60" size = "30" value="{$cat.cat_name|escape}" />{$lang.require_field}</td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.parent_cat}</td>
+    <td>
+      <select name="parent_id" onchange="catChanged()" {if $disabled }disabled="disabled"{/if} >
+        <option value="0">{$lang.cat_top}</option>
+        {$cat_select}
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.sort_order}:</td>
+    <td>
+      <input type="text" name='sort_order' {if $cat.sort_order}value='{$cat.sort_order}'{else} value="50"{/if} size="15" />
+    </td>
+  </tr>
+
+<tr>
+    <td class="label">标题</td>
+    <td><input type="text" name="title_define" maxlength="60" size = "60" value="{$cat.title_define|escape}" /></td>
+  </tr>
+
+  <tr>
+    <td class="label"><a href="javascript:showNotice('notice_keywords');" title="{$lang.form_notice}">
+        <img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>{$lang.cat_keywords}</td>
+    <td><input type="text" name="keywords" maxlength="60" size="50" value="{$cat.keywords|escape}" />
+    <br /><span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="notice_keywords">{$lang.notice_keywords}</span>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{$lang.cat_desc}</td>
+    <td><textarea  name="cat_desc" cols="60" rows="4">{$cat.cat_desc|escape}</textarea></td>
+  </tr>
+
+
+
+
+
+
+<tr>
+<td class="label"><a href="javascript:showNotice('noticeGoodsType');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a>模板信息
+</td>
+<td class="tips">提示，点小灯显示设置</td>
+</tr>
+
+<tr>
+<td colspan='2'>
+<div id="noticeGoodsType" style="display:block">
+<table>
+<tr>
+            <td class="label"><font color=#ff3300>自定义URL:</font></td>
+            <td>
+			<input type="text" name="define_url" value="{$cat.define_url}" size="30"  /><br><span class="notice-span" >只能输入数字、字母 以及 _ ，除此之外不能输入其他字符，尤其是不能输入 中划线 -
+			</span>
+			<input type="hidden" name="old_define_url" value="{$cat.define_url}" />
+			</td>
+ </tr>
+ {if $is_pc}
+<tr >
+    <td class="label">电脑端分类页界面:</td>
+    <td>
+     <input type="text" name="moban" maxlength="60" size = "30" value="{$cat.moban|escape}" />
+	 <br>此控制前台分类页界面，默认即可。
+    </td>
+  </tr>
+  <tr>
+    <td class="label">电脑端内容页界面:</td>
+    <td>
+     <input type="text" name="smallmoban" maxlength="60" size = "30" value="{$cat.smallmoban|escape}" />
+	 <br>此控制前台内容页界面，默认即可。
+    </td>
+  </tr>
+{/if}
+
+ {if $is_mobile}
+<tr>
+    <td class="label">移动端分类页界面:</td>
+    <td>
+     <input type="text" name="mmoban" maxlength="60" size = "30" value="{$cat.mmoban|escape}" />
+	 <br>此控制前台分类页界面，默认即可。
+    </td>
+  </tr>
+  <tr>
+    <td class="label">移动端内容页界面:</td>
+    <td>
+     <input type="text" name="msmallmoban" maxlength="60" size = "30" value="{$cat.msmallmoban|escape}" />
+	 <br>此控制前台内容页界面，默认即可。
+    </td>
+  </tr>
+  {/if}
+</table>
+</div>
+</td>
+</tr>
+
+
+
+
+  <tr>
+    <td colspan="2" align="center"><br />
+      <input type="submit" class="button" value="{$lang.button_submit}" />
+      <input type="reset" class="button" value="{$lang.button_reset}" />
+      <input type="hidden" name="act" value="{$form_action}" />
+      <input type="hidden" name="id" value="{$cat.cat_id}" />
+      <input type="hidden" name="old_catname" value="{$cat.cat_name}" />
+    </td>
+  </tr>
+</table>
+</form>
+</div>
+{insert_scripts files="../js/utils.js,validator.js"}
+{literal}
+<script language="JavaScript">
+<!--
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+    validator = new Validator("theForm");
+    validator.required("cat_name",  no_catname);
+    return validator.passed();
+}
+
+/**
+ * 选取上级分类时判断选定的分类是不是底层分类
+ */
+function catChanged()
+{
+  var obj = document.forms['theForm'].elements['parent_id'];
+
+  cat_type = obj.options[obj.selectedIndex].getAttribute('cat_type');
+  if (cat_type == undefined)
+  {
+    cat_type = 1;
+  }
+
+  if ((obj.selectedIndex > 0) && (cat_type == 2 || cat_type == 3 || cat_type == 5))
+  {
+    alert(sys_hold);
+    obj.selectedIndex = 0;
+    return false;
+  }
+
+  return true;
+}
+
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}
