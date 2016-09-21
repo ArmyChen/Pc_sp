@@ -4,6 +4,7 @@ define('IN_ECS', true);
 
 require(dirname(__FILE__) . '/includes/init.php');
 require(dirname(__FILE__) . '/common.php');
+
 if ((DEBUG_MODE & 2) != 2)
 {
     $smarty->caching = true;
@@ -48,23 +49,30 @@ $page   = !empty($_REQUEST['page'])  && intval($_REQUEST['page'])  > 0 ? intval(
 //-- PROCESSOR
 /*------------------------------------------------------ */
 
+
 /* 获得页面的缓存ID */
 $cache_id = sprintf('%X', crc32($cat_id . '-' . $page . '-' . $_CFG['lang']));
 
 //阿能
-$parenttest_id = $GLOBALS['db']->getOne("select parent_id from ". $GLOBALS['ecs']->table('article_cat')." where cat_id=" .$cat_id);
-$parenttesttop_id = $GLOBALS['db']->getOne("select parent_id from ". $GLOBALS['ecs']->table('article_cat')." where parent_id=" . $parenttest_id);
-if ( $parenttesttop_id<>0 )
-{
-	$cattest_id = $parenttest_id;
-}
-elseif( $parenttesttop_id==0)
 
-{
-	$cattest_id = $cat_id;
-}
+    $parenttest_id = $GLOBALS['db']->getOne("select parent_id from ". $GLOBALS['ecs']->table('article_cat')." where cat_id=" .$cat_id);
+   
+    if(empty($parenttest_id)){
+        header("location:/404.html");
+    }
+
+    $parenttesttop_id = $GLOBALS['db']->getOne("select parent_id from ". $GLOBALS['ecs']->table('article_cat')." where parent_id=" . $parenttest_id);
+    if ( $parenttesttop_id<>0 )
+    {
+        $cattest_id = $parenttest_id;
+    }
+    elseif( $parenttesttop_id==0)
+
+    {
+        $cattest_id = $cat_id;
+    }
+
 //阿能
-
 
 if (!$smarty->is_cached('article_cat.dwt', $cache_id))
 {

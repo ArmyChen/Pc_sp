@@ -1,4 +1,5 @@
 <?php
+
 // database host
 $db_host   = "localhost";
 
